@@ -1,31 +1,3 @@
 <div class="app-shell">
-  <div class="app-card" *ngIf="currentPage() !== 'search'; else searchView">
-    <app-auth
-      *ngIf="currentPage() === 'auth'"
-      (registerRequested)="navigateTo('register')"
-      (recoverRequested)="navigateTo('recover')"
-      (authenticated)="handleAuthenticated()"
-    ></app-auth>
-
-    <app-register
-      *ngIf="currentPage() === 'register'"
-      (back)="navigateTo('auth')"
-      (registered)="handleAuthenticated()"
-    ></app-register>
-
-    <app-recover
-      *ngIf="currentPage() === 'recover'"
-      (back)="navigateTo('auth')"
-    ></app-recover>
-  </div>
-
-  <ng-template #searchView>
-    <div class="search-shell">
-      <div class="search-shell__header">
-        <h1>DocRoster — Поиск врачей</h1>
-        <button type="button" (click)="navigateTo('auth')">Выйти</button>
-      </div>
-      <app-search></app-search>
-    </div>
-  </ng-template>
+  <app-box></app-box>
 </div>

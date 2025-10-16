@@ -1,27 +1,12 @@
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
-import { AuthComponent } from './components/auth/auth.component';
-import { RegisterComponent } from './components/register/register.component';
-import { RecoverComponent } from './components/recover/recover.component';
-import { SearchComponent } from './components/search/search.component';
-
-type Page = 'auth' | 'register' | 'recover' | 'search';
+import { BoxComponent } from './components/box/box.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, AuthComponent, RegisterComponent, RecoverComponent, SearchComponent],
+  imports: [CommonModule, BoxComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  protected currentPage = signal<Page>('auth');
-
-  protected navigateTo(page: Page): void {
-    this.currentPage.set(page);
-  }
-
-  protected handleAuthenticated(): void {
-    this.currentPage.set('search');
-  }
-}
+export class AppComponent {}
