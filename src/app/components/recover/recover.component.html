@@ -1,0 +1,25 @@
+<section class="recover">
+  <button type="button" class="recover__close" (click)="back.emit()" aria-label="Назад к входу"></button>
+
+  <div class="recover__logo">
+    <img src="assets/logo-docroster.png" alt="DocRoster logo" />
+  </div>
+
+  <h1>Восстановление доступа</h1>
+  <p>Укажите зарегистрированный email, и мы вышлем инструкции по восстановлению пароля.</p>
+
+  <form (ngSubmit)="submit()">
+    <label>
+      <span>Email</span>
+      <input type="email" name="recoverEmail" [(ngModel)]="email" required />
+    </label>
+    <button type="submit" [disabled]="!email || isLoading">
+      <span *ngIf="isLoading" class="recover__spinner" aria-hidden="true"></span>
+      {{ isLoading ? 'Отправка...' : 'Отправить инструкции' }}
+    </button>
+  </form>
+
+  <button type="button" class="recover__link" (click)="back.emit()">
+    Вернуться ко входу
+  </button>
+</section>

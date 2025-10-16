@@ -1,173 +1,70 @@
-# DocRoster - Complete Medical Platform
+# DocRoster - Angular Edition
 
-A beautiful React medical platform with authentication and doctor search functionality built with Tailwind CSS and Vite.
+DocRoster is now powered by **Angular 20** with a fully redesigned SCSS styling system. The project delivers an authentication experience (вход, регистрация, восстановление) and an immersive doctor search dashboard inspired by the original React + Tailwind prototype.
 
-## Features
+## ✨ Highlights
 
-- **Modern Design**: Glass-morphism design with backdrop blur effects
-- **Complete Authentication Flow**: Login, registration, and password recovery with navigation
-- **Doctor Search Platform**: Full search interface with multiple sections
-- **Real Images**: Integrated actual logo and user photos
-- **Social Authentication**: Google and Apple sign-in buttons (UI ready for integration)  
-- **Form Validation**: Email and password validation with loading states
-- **Responsive Design**: Works on desktop and mobile devices
-- **Interactive Elements**: Password visibility toggle, hover effects, loading spinners
-- **Accessibility**: ARIA labels and keyboard navigation support
-- **Modular Components**: Clean architecture with placeholder components ready for development
+- **Angular 20 + Standalone Components** – Modern architecture without NgModules for simplified composition.
+- **SCSS Design System** – Carefully crafted glassmorphism theme with reusable tokens and responsive layouts.
+- **Complete Auth Flow** – Login, registration and password recovery screens with loading states and validation hints.
+- **Search Workspace** – Rich dashboard with фильтрами, карточками врачей, уведомлениями и детальной карточкой специалиста.
+- **Accessibility First** – Semantic markup, ARIA labels and keyboard friendly controls.
 
-## Application Flow
+## 🏗 Project Structure
 
-1. **Login Page**: Main authentication screen with email/password and social login options
-2. **Registration Page**: User registration with name, email, phone fields and terms agreement
-3. **Password Recovery**: Email-based password reset functionality
-4. **Doctor Search Platform**: Full featured search with filters, results, and specialist listings
-5. **Navigation**: Smooth transitions between all screens with proper state management
-2. **Registration Page**: User registration with name, email, phone fields and terms agreement  
-3. **Search Platform**: Doctor search interface with filters, results, and specialized sections
-4. **Logout**: Return to authentication from search platform
+```
+src/
+├── app/
+│   ├── app.component.{ts,html,scss}          # Root shell and navigation
+│   └── components/
+│       ├── auth/                              # Authentication screen
+│       ├── register/                          # Registration form with terms
+│       ├── recover/                           # Password recovery flow
+│       └── search/                            # Search dashboard and doctor cards
+├── assets/                                    # Brand assets and imagery
+├── index.html                                 # Application entry template
+├── main.ts                                    # Standalone bootstrap
+├── styles.scss                                # Global tokens and resets
+└── test.ts                                    # Angular testing bootstrap
+```
 
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
-
-- Node.js 16.0.0 or higher
-- npm or yarn
+- Node.js 18+
+- npm 9+
 
 ### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone <your-repo-url>
-   cd docroster
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
-
-4. Open your browser and visit `http://localhost:3000` (or the port shown in terminal)
-
-## Available Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-
-## Project Structure
-
-```
-docroster/
-├── src/
-│   ├── components/
-│   │   ├── Auth.jsx                      # Main authentication/login component
-│   │   ├── Register.jsx                  # User registration component
-│   │   ├── Recover.jsx                   # Password recovery component
-│   │   ├── Search.jsx                    # Main search platform component
-│   │   ├── Box.jsx                       # User avatar component
-│   │   ├── UserAvatar.jsx                # Interactive avatar with upload
-│   │   ├── Btn.jsx                       # Reusable button component
-│   │   ├── Close.jsx                     # Close/back button component
-│   │   ├── AppointmentSection.jsx        # Doctor appointment booking
-│   │   ├── ContentWrapperSection.jsx     # Content wrapper
-│   │   ├── DoctorCardSection.jsx         # Individual doctor cards
-│   │   ├── DoctorDetailsSection.jsx      # Doctor detailed information
-│   │   ├── FilterOptionsSection.jsx      # Search filters
-│   │   ├── MainContentSection.jsx        # Main content container
-│   │   ├── NotificationSection.jsx       # User notifications
-│   │   ├── PaginationSection.jsx         # Results pagination
-│   │   ├── ProfileSection.jsx            # User profile display
-│   │   ├── ResultsSection.jsx            # Search results
-│   │   ├── SearchBarSection.jsx          # Search input fields
-│   │   ├── SearchResultsWrapperSection.jsx # Results wrapper
-│   │   ├── SearchSection.jsx             # Top search section
-│   │   └── SpecialistListSection.jsx     # Medical specialties list
-│   ├── assets/
-│   │   ├── logo-docroster.png           # Main DocRoster logo
-│   │   ├── user.png                     # User profile photo
-│   │   ├── logo.png                     # Alternative logo
-│   │   └── default-user.svg             # Fallback user avatar
-│   ├── App.jsx                          # Main app with routing logic
-│   ├── main.jsx                         # Entry point
-│   └── index.css                        # Global styles with Tailwind
-├── index.html                # HTML template
-├── vite.config.js            # Vite configuration
-├── tailwind.config.js        # Tailwind CSS configuration
-├── postcss.config.js         # PostCSS configuration
-└── package.json              # Dependencies and scripts
+```bash
+npm install
 ```
 
-## Tech Stack
+### Development Server
+```bash
+npm start
+```
+Navigate to `http://localhost:4200/` to see the application.
 
-- **React 18** - UI framework
-- **Vite** - Build tool and dev server
-- **Tailwind CSS** - Utility-first CSS framework
-- **PostCSS** - CSS processing
-- **Autoprefixer** - CSS vendor prefixing
+### Production Build
+```bash
+npm run build
+```
 
-## Features Implementation
+## 🧪 Testing & Linting
 
-### Authentication Methods
-- Email/Password login with validation
-- User registration with name, email, phone fields  
-- Google OAuth (UI ready - needs backend integration)
-- Apple ID (UI ready - needs backend integration)
-- Terms and conditions agreement for registration
+Angular CLI scaffolding is ready for future automated tests and linting:
 
-### Navigation
-- Smooth page transitions between login and registration
-- Back button functionality from registration to login
-- Clean state management for page switching
+```bash
+npm test      # Karma + Jasmine (config scaffolded)
+npm run lint  # Placeholder for future lint rules
+```
 
-### UX Enhancements
-- Loading states for all buttons and forms
-- Form validation feedback with error messages
-- Password visibility toggle on login page
-- Custom checkbox component for terms agreement
-- Smooth hover animations and focus states
-- Touch-friendly button sizes for mobile
+## 📐 Styling Philosophy
 
-### Responsive Design
-- Mobile-first approach
-- Flexible container sizing
-- Touch-friendly button sizes
+- Shared design tokens live in `styles.scss` using CSS custom properties.
+- Component specific SCSS embraces BEM naming for clarity.
+- Glassmorphism cards, subtle shadows and responsive clamps recreate the Tailwind look & feel without utilities.
 
-## Next Steps for Production
+## 📄 License
 
-1. **Backend Integration**:
-   - Connect form submission to authentication API
-   - Implement Google OAuth flow
-   - Implement Apple ID authentication
-
-2. **Security**:
-   - Add CSRF protection
-   - Implement proper session management
-   - Add rate limiting
-
-3. **Enhanced Features**:
-   - Remember me functionality
-   - Forgot password flow
-   - Email verification
-   - Two-factor authentication
-
-4. **Performance**:
-   - Code splitting
-   - Image optimization
-   - Bundle analysis
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License.
+Released under the MIT License. Feel free to extend the Angular implementation to integrate real backend APIs, i18n or state management as next steps.

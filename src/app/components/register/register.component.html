@@ -1,0 +1,53 @@
+<section class="register">
+  <button type="button" class="register__close" (click)="back.emit()" aria-label="Назад к входу"></button>
+
+  <div class="register__avatar">
+    <img src="assets/user.png" alt="Avatar" />
+    <button type="button" class="register__avatar-action" aria-label="Загрузить фото"></button>
+  </div>
+
+  <header class="register__header">
+    <h1>Создание аккаунта</h1>
+    <p>Заполните данные, чтобы управлять специалистами и записываться на приём</p>
+  </header>
+
+  <div class="register__socials">
+    <button type="button" (click)="signUpWith('Google')" [disabled]="isLoading">
+      <span class="register__social-icon register__social-icon--google" aria-hidden="true"></span>
+      Google
+    </button>
+    <button type="button" (click)="signUpWith('Apple')" [disabled]="isLoading">
+      <span class="register__social-icon register__social-icon--apple" aria-hidden="true"></span>
+      Apple
+    </button>
+  </div>
+
+  <div class="register__divider"><span>или</span></div>
+
+  <form class="register__form" (ngSubmit)="submitForm()">
+    <label>
+      <span>Имя или название компании *</span>
+      <input type="text" name="name" [(ngModel)]="formData.name" required />
+    </label>
+    <label>
+      <span>Email для входа *</span>
+      <input type="email" name="email" [(ngModel)]="formData.email" required />
+    </label>
+    <label>
+      <span>Телефон</span>
+      <input type="tel" name="phone" [(ngModel)]="formData.phone" />
+    </label>
+
+    <button type="submit" [disabled]="isLoading || !agreedToTerms">
+      <span *ngIf="isLoading" class="register__spinner" aria-hidden="true"></span>
+      {{ isLoading ? 'Создание...' : 'Зарегистрироваться в DocRoster' }}
+    </button>
+  </form>
+
+  <label class="register__terms">
+    <input type="checkbox" [(ngModel)]="agreedToTerms" name="terms" />
+    <span>
+      Я принимаю <button type="button" (click)="alert('Terms and Conditions would open here')">условия сервиса</button>
+    </span>
+  </label>
+</section>
