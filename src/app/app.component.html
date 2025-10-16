@@ -3,10 +3,10 @@
     class="app-shell__back"
     type="button"
     *ngIf="activeScreen !== 'box'"
-    (click)="goToBox()"
-    aria-label="Back to sign in"
+    (click)="handleBackClick()"
+    [attr.aria-label]="backButtonAriaLabel"
   >
-    ← Back
+    {{ backButtonLabel }}
   </button>
 
   <ng-container [ngSwitch]="activeScreen">
@@ -16,6 +16,14 @@
       (signInCompleted)="handleSignIn()"
     ></app-box>
     <app-recover *ngSwitchCase="'recover'" (close)="closeRecover()"></app-recover>
-    <app-search *ngSwitchCase="'search'"></app-search>
+    <app-search
+      *ngSwitchCase="'search'"
+      (profileRequested)="handleProfileRequest($event)"
+    ></app-search>
+    <app-specialist
+      *ngSwitchCase="'specialist'"
+      [specialistId]="selectedSpecialistId"
+      (close)="closeSpecialist()"
+    ></app-specialist>
   </ng-container>
 </div>

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, signal } from '@angular/core';
+import { Component, EventEmitter, Output, computed, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 interface Specialist {
@@ -18,6 +18,8 @@ interface Specialist {
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent {
+  @Output() public profileRequested = new EventEmitter<number>();
+
   protected query = '';
   protected location = '';
 
@@ -57,4 +59,18 @@ export class SearchComponent {
       })
       .slice(0, 6);
   });
+
+  protected openHighlightedProfile(): void {
+    const [firstResult] = this.filteredResults();
+
+    if (!firstResult) {
+      return;
+    }
+
+    this.profileRequested.emit(firstResult.id);
+  }
+
+  protected requestProfile(id: number): void {
+    this.profileRequested.emit(id);
+  }
 }

@@ -19,7 +19,7 @@
       />
     </div>
     <button type="button" class="search-screen__action">Search</button>
-    <button type="button" class="search-screen__profile">Profile</button>
+    <button type="button" class="search-screen__profile" (click)="openHighlightedProfile()">Profile</button>
   </header>
 
   <div class="search-screen__content">
@@ -40,7 +40,7 @@
           <p>{{ specialist.facility }}</p>
           <p>{{ specialist.description }}</p>
         </div>
-        <button type="button" class="search-card__cta">View profile</button>
+        <button type="button" class="search-card__cta" (click)="requestProfile(specialist.id)">View profile</button>
       </article>
     </div>
   </div>

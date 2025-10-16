@@ -3,18 +3,20 @@ import { Component, HostListener } from '@angular/core';
 import { BoxComponent } from './components/box/box.component';
 import { RecoverComponent } from './components/recover/recover.component';
 import { SearchComponent } from './components/search/search.component';
+import { SpecialistComponent } from './components/specialist/specialist.component';
 
-type ScreenKey = 'box' | 'recover' | 'search';
+type ScreenKey = 'box' | 'recover' | 'search' | 'specialist';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, BoxComponent, RecoverComponent, SearchComponent],
+  imports: [CommonModule, BoxComponent, RecoverComponent, SearchComponent, SpecialistComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   protected activeScreen: ScreenKey = this.resolveScreen();
+  protected selectedSpecialistId: number | null = null;
 
   @HostListener('window:hashchange')
   protected onHashChange(): void {
@@ -33,15 +35,45 @@ export class AppComponent {
     this.setScreen('box');
   }
 
-  protected goToBox(): void {
-    this.setScreen('box');
+  protected handleProfileRequest(specialistId: number | null = null): void {
+    this.selectedSpecialistId = specialistId;
+    this.setScreen('specialist');
   }
 
-  protected goToSearch(): void {
+  protected closeSpecialist(): void {
     this.setScreen('search');
   }
 
+  protected handleBackClick(): void {
+    if (this.activeScreen === 'specialist') {
+      this.setScreen('search');
+      return;
+    }
+
+    this.setScreen('box');
+  }
+
+  protected get backButtonLabel(): string {
+    return this.activeScreen === 'specialist' ? '← Results' : '← Back';
+  }
+
+  protected get backButtonAriaLabel(): string {
+    if (this.activeScreen === 'specialist') {
+      return 'Back to search results';
+    }
+
+    if (this.activeScreen === 'search') {
+      return 'Back to sign in';
+    }
+
+    return 'Back';
+  }
+
   private setScreen(screen: ScreenKey): void {
+    if (screen !== 'specialist') {
+      this.selectedSpecialistId = null;
+    }
+
     this.activeScreen = screen;
 
     if (typeof window !== 'undefined') {
@@ -64,6 +96,10 @@ export class AppComponent {
 
     if (hash === 'search') {
       return 'search';
+    }
+
+    if (hash === 'specialist') {
+      return 'specialist';
     }
 
     return 'box';
