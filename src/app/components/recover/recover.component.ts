@@ -1,29 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-recover',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule],
   templateUrl: './recover.component.html',
   styleUrls: ['./recover.component.scss'],
 })
 export class RecoverComponent {
-  @Output() public back = new EventEmitter<void>();
-
   protected email = '';
-  protected isLoading = false;
 
-  protected async submit(): Promise<void> {
-    if (!this.email || this.isLoading) {
-      return;
-    }
+  protected handleSubmit(event: Event): void {
+    event.preventDefault();
+    console.log('Password recovery requested for:', this.email);
+  }
 
-    this.isLoading = true;
-    await new Promise((resolve) => setTimeout(resolve, 1200));
-    this.isLoading = false;
-    alert(`Инструкции отправлены на ${this.email}`);
-    this.back.emit();
+  protected handleClose(): void {
+    console.log('Close button clicked');
   }
 }

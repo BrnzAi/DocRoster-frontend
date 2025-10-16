@@ -1,3 +1,6 @@
 <div class="app-shell">
-  <app-box></app-box>
+  <ng-container [ngSwitch]="activeScreen">
+    <app-box *ngSwitchCase="'box'"></app-box>
+    <app-recover *ngSwitchCase="'recover'"></app-recover>
+  </ng-container>
 </div>

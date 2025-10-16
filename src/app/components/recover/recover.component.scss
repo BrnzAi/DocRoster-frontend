@@ -1,140 +1,144 @@
-.recover {
+:host {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: clamp(1.25rem, 2.5vw, 1.75rem);
-  position: relative;
-
-  &__close {
-    position: absolute;
-    top: -1rem;
-    right: -1rem;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    background: rgba(255, 255, 255, 0.35);
-    backdrop-filter: blur(18px);
-    cursor: pointer;
-
-    &::before,
-    &::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 16px;
-      height: 2px;
-      background: var(--primary-color);
-      transform-origin: center;
-    }
-
-    &::before {
-      transform: translate(-50%, -50%) rotate(45deg);
-    }
-
-    &::after {
-      transform: translate(-50%, -50%) rotate(-45deg);
-    }
-  }
-
-  &__logo {
-    width: clamp(120px, 30vw, 200px);
-  }
-
-  h1 {
-    margin: 0;
-    text-align: center;
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    font-weight: 700;
-  }
-
-  p {
-    margin: 0;
-    text-align: center;
-    color: var(--muted-text);
-    font-size: 0.95rem;
-  }
-
-  form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-
-    label {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      padding: 0.75rem 1rem;
-      border-radius: 18px;
-      background: rgba(10, 23, 72, 0.05);
-      border: 1px solid transparent;
-
-      &:focus-within {
-        border-color: rgba(10, 23, 72, 0.25);
-        background: rgba(10, 23, 72, 0.08);
-      }
-
-      span {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
-        color: rgba(10, 23, 72, 0.55);
-      }
-
-      input {
-        border: 0;
-        background: transparent;
-        font-size: 1rem;
-        font-weight: 500;
-        color: var(--primary-color);
-        outline: none;
-      }
-    }
-
-    button {
-      padding: 0.85rem 1.5rem;
-      border-radius: 999px;
-      border: 0;
-      background: var(--primary-color);
-      color: white;
-      font-weight: 600;
-      font-size: 1rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
-
-      &:disabled {
-        opacity: 0.65;
-        cursor: not-allowed;
-      }
-    }
-  }
-
-  &__spinner {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.4);
-    border-top-color: white;
-    animation: spin 0.6s linear infinite;
-  }
-
-  &__link {
-    border: 0;
-    background: none;
-    color: rgba(10, 23, 72, 0.65);
-    font-weight: 500;
-    text-decoration: underline;
-    cursor: pointer;
-  }
+  justify-content: center;
+  min-height: 100vh;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3rem);
+  background: radial-gradient(120% 120% at 50% 10%, rgba(10, 23, 72, 0.12), rgba(10, 23, 72, 0.75));
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
+[data-model-id='1850:1842'] {
+  width: min(100%, 393px);
+  min-height: 374px;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 4vw, 2.75rem);
+  padding: clamp(2.25rem, 5vw, 3rem) clamp(1.75rem, 4vw, 2.25rem);
+  border-radius: 32px;
+  background: rgba(255, 255, 255, 0.24);
+  box-shadow:
+    0 32px 64px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 1px 0 0 rgba(255, 255, 255, 0.32),
+    inset 0 -1px 21px rgba(0, 0, 0, 0.13),
+    inset -1px 0 21px rgba(0, 0, 0, 0.11);
+  backdrop-filter: blur(28px) brightness(100%);
+  -webkit-backdrop-filter: blur(28px) brightness(100%);
+  position: relative;
+}
+
+[data-model-id='1850:1842'] > button {
+  position: absolute;
+  top: clamp(1.25rem, 4vw, 1.75rem);
+  right: clamp(1.25rem, 4vw, 1.75rem);
+  width: clamp(2.25rem, 6vw, 2.5rem);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgba(10, 23, 72, 0.16);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform 150ms ease, opacity 150ms ease;
+}
+
+[data-model-id='1850:1842'] > button:hover {
+  transform: scale(1.05);
+  opacity: 0.85;
+}
+
+[data-model-id='1850:1842'] > button:active {
+  transform: scale(0.96);
+}
+
+[data-model-id='1850:1842'] > img {
+  width: clamp(180px, 60%, 258px);
+  height: auto;
+  align-self: center;
+}
+
+[data-model-id='1850:1842'] form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+[data-model-id='1850:1842'] form > div {
+  width: min(100%, 345px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+[data-model-id='1850:1842'] form > div > div {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 18px;
+  background: rgba(10, 23, 72, 0.05);
+  border: 1px solid transparent;
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+
+[data-model-id='1850:1842'] input[type='email'] {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  font: 500 1.0625rem/1.35 'SF Pro Text', 'Helvetica', sans-serif;
+  color: rgba(10, 23, 72, 0.92);
+  outline: none;
+  caret-color: rgba(10, 23, 72, 0.8);
+}
+
+[data-model-id='1850:1842'] input::placeholder {
+  color: rgba(10, 23, 72, 0.45);
+}
+
+[data-model-id='1850:1842'] form > div > div:focus-within {
+  border-color: rgba(10, 23, 72, 0.2);
+  background: rgba(10, 23, 72, 0.08);
+}
+
+[data-model-id='1850:1842'] button[type='submit'] {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(10, 23, 72, 0.4);
+  background: rgba(10, 23, 72, 0.8);
+  color: #fff;
+  font: 500 0.95rem/1.4 'SF Pro Text', 'Helvetica', sans-serif;
+  cursor: pointer;
+  backdrop-filter: blur(12px) brightness(100%);
+  -webkit-backdrop-filter: blur(12px) brightness(100%);
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+
+[data-model-id='1850:1842'] button[type='submit']:hover {
+  opacity: 0.9;
+}
+
+[data-model-id='1850:1842'] button[type='submit']:active {
+  transform: translateY(1px);
+}
+
+@media (max-width: 480px) {
+  :host {
+    padding: clamp(1.5rem, 6vw, 2rem);
+  }
+
+  [data-model-id='1850:1842'] {
+    width: 100%;
+    padding: clamp(1.75rem, 6vw, 2.25rem) clamp(1.25rem, 6vw, 1.75rem);
+    border-radius: 28px;
+  }
+
+  [data-model-id='1850:1842'] > button {
+    right: clamp(0.75rem, 6vw, 1.25rem);
+    top: clamp(0.75rem, 6vw, 1.25rem);
   }
 }
