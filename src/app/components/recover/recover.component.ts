@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-recover',
@@ -9,14 +9,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./recover.component.scss'],
 })
 export class RecoverComponent {
+  @Output() public close = new EventEmitter<void>();
+
   protected email = '';
 
   protected handleSubmit(event: Event): void {
     event.preventDefault();
-    console.log('Password recovery requested for:', this.email);
+
+    if (!this.email) {
+      return;
+    }
+
+    alert('A recovery link would be sent to ' + this.email);
   }
 
   protected handleClose(): void {
-    console.log('Close button clicked');
+    this.close.emit();
   }
 }

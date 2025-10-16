@@ -1,47 +1,26 @@
-<div
-  class="bg-[#ffffff3d] w-full min-w-[393px] min-h-[374px] flex flex-col gap-11"
-  data-model-id="1850:1842"
->
-  <button
-    class="fixed top-6 left-[333px] w-9 z-[3] aspect-[1] cursor-pointer"
-    (click)="handleClose()"
-    aria-label="Close"
-    type="button"
-  >
-    <img class="w-full h-full" alt="Close" src="assets/anima/recover/close.svg" />
-  </button>
+<section class="recover-screen" aria-label="Recover password">
+  <div class="recover-screen__background" aria-hidden="true"></div>
 
-  <img
-    class="z-[2] ml-px h-40 w-[258px] self-center aspect-[1.61] object-cover"
-    alt="DocRoster Logo"
-    src="assets/anima/recover/image-4.png"
-  />
+  <div class="recover-card">
+    <button class="recover-card__close" type="button" (click)="handleClose()" aria-label="Close">
+      <img src="assets/anima/recover/close.svg" alt="" />
+    </button>
 
-  <form
-    class="z-[1] h-[102px] w-[393px] self-center flex-col items-center gap-6 flex relative"
-    (submit)="handleSubmit($event)"
-  >
-    <div class="flex-col w-[345px] items-start gap-2 flex-[0_0_auto] flex relative">
-      <div class="h-12 items-center gap-3 px-4 py-3 self-stretch w-full bg-[#0a17480d] rounded-xl flex relative">
+    <img class="recover-card__logo" src="assets/anima/recover/image-4.png" alt="DocRoster logo" />
+
+    <form class="recover-card__form" (submit)="handleSubmit($event)">
+      <label class="recover-card__field">
+        <span class="recover-card__label">Registered email</span>
         <input
           type="email"
-          [value]="email"
-          (input)="email = $any($event.target).value ?? ''"
-          placeholder="Registered email"
-          class="relative w-full opacity-30 [font-family:'SF_Pro_Text-Semibold',Helvetica] font-normal text-[#0a1748] text-lg tracking-[-0.50px] leading-[21.6px] placeholder:opacity-100 bg-transparent outline-none"
+          name="email"
+          placeholder="email@example.com"
+          autocomplete="email"
           required
-          aria-label="Registered email"
         />
-      </div>
+      </label>
 
-      <button
-        type="submit"
-        class="all-[unset] box-border flex w-[345px] items-start justify-center gap-2.5 px-6 py-3 relative flex-[0_0_auto] bg-[#0a1748cc] rounded-3xl border border-solid border-[#0a174866] backdrop-blur-md backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(12px)_brightness(100%)] cursor-pointer transition-opacity hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed"
-      >
-        <span class="relative flex items-center justify-center w-fit mt-[-1.00px] [font-family:'SF_Pro_Text-Semibold',Helvetica] font-normal text-white text-sm text-center tracking-[-0.41px] leading-[22.4px] whitespace-nowrap">
-          Recover password
-        </span>
-      </button>
-    </div>
-  </form>
-</div>
+      <button class="recover-card__submit" type="submit">Recover password</button>
+    </form>
+  </div>
+</section>

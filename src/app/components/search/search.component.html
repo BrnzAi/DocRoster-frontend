@@ -1,100 +1,47 @@
-<section class="search">
-  <div class="search__panel">
-    <div class="search__inputs">
-      <label>
-        <span>Специалист</span>
-        <input type="text" [(ngModel)]="query" placeholder="Введите имя или специализацию" />
-      </label>
-      <label>
-        <span>Город</span>
-        <input type="text" [(ngModel)]="city" placeholder="Москва, Санкт-Петербург..." />
-      </label>
-      <button type="button">Найти</button>
+<section class="search-screen" aria-label="Search specialists">
+  <header class="search-screen__hero">
+    <div class="search-screen__field">
+      <label for="specialist" class="sr-only">Find a specialist</label>
+      <input
+        id="specialist"
+        type="search"
+        placeholder="Find a specialist..."
+        [(ngModel)]="query"
+      />
+    </div>
+    <div class="search-screen__field">
+      <label for="location" class="sr-only">City or location</label>
+      <input
+        id="location"
+        type="search"
+        placeholder="Thunder Bay, Winnipeg..."
+        [(ngModel)]="location"
+      />
+    </div>
+    <button type="button" class="search-screen__action">Search</button>
+    <button type="button" class="search-screen__profile">Profile</button>
+  </header>
+
+  <div class="search-screen__content">
+    <div class="search-screen__summary">
+      <span class="search-screen__eyebrow">Search results</span>
+      <h1>Find me an Occupational Therapist who travels to Thunder Bay for catastrophic assessments</h1>
+      <p>
+        Showing {{ filteredResults().length }} curated specialists based on your recovery program preferences and travel filters.
+      </p>
     </div>
 
-    <div class="search__filters">
-      <span>Популярные направления:</span>
-      <div class="search__chips">
-        <button type="button" *ngFor="let filter of filters">{{ filter }}</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="search__layout">
-    <aside class="search__aside">
-      <div class="search__stats">
-        <h2>Ваш профиль</h2>
-        <p>
-          Вы можете управлять записями, отслеживать рекомендации и быстро находить нужных специалистов.
-        </p>
-        <ul>
-          <li><strong>12</strong><span>активных записей</span></li>
-          <li><strong>7</strong><span>рекомендованных врачей</span></li>
-          <li><strong>4</strong><span>новых уведомления</span></li>
-        </ul>
-      </div>
-
-      <div class="search__notifications">
-        <h3>Уведомления</h3>
-        <article *ngFor="let item of notifications">
-          <h4>{{ item.title }}</h4>
-          <p>{{ item.content }}</p>
-          <span>{{ item.time }}</span>
-        </article>
-      </div>
-    </aside>
-
-    <div class="search__results">
-      <header class="search__results-header">
-        <div>
-          <h2>Найдено {{ doctorList.length }} специалиста</h2>
-          <p>Рекомендуем специалистов с высоким рейтингом и актуальной доступностью.</p>
+    <div class="search-screen__list" role="list">
+      <article class="search-card" *ngFor="let specialist of filteredResults()" role="listitem">
+        <div class="search-card__avatar" aria-hidden="true">{{ specialist.name.charAt(0) }}</div>
+        <div class="search-card__body">
+          <h2>{{ specialist.name }}</h2>
+          <span>{{ specialist.title }}</span>
+          <p>{{ specialist.facility }}</p>
+          <p>{{ specialist.description }}</p>
         </div>
-        <button type="button">Сохранить фильтр</button>
-      </header>
-
-      <div class="search__cards">
-        <article
-          *ngFor="let doctor of doctorList"
-          (click)="selectDoctor(doctor)"
-          [class.search__card--active]="selectedDoctor().id === doctor.id"
-          class="search__card"
-        >
-          <header>
-            <div>
-              <h3>{{ doctor.name }}</h3>
-              <span>{{ doctor.specialty }}</span>
-            </div>
-            <div class="search__card-rating">
-              <strong>{{ doctor.rating }}</strong>
-              <span>({{ doctor.reviews }} отзывов)</span>
-            </div>
-          </header>
-          <p class="search__card-location">{{ doctor.location }}</p>
-          <p class="search__card-about">{{ doctor.about }}</p>
-          <footer>
-            <span class="search__card-price">{{ doctor.price }}</span>
-            <span class="search__card-availability">{{ doctor.availability }}</span>
-          </footer>
-        </article>
-      </div>
+        <button type="button" class="search-card__cta">View profile</button>
+      </article>
     </div>
-
-    <aside class="search__details" *ngIf="selectedDoctor() as doctor">
-      <div class="search__details-header">
-        <h2>{{ doctor.name }}</h2>
-        <span>{{ doctor.specialty }}</span>
-      </div>
-      <div class="search__details-meta">
-        <span><strong>Опыт:</strong> {{ doctor.experience }}</span>
-        <span><strong>Языки:</strong> {{ doctor.languages.join(', ') }}</span>
-        <span><strong>Стоимость:</strong> {{ doctor.price }}</span>
-      </div>
-      <p class="search__details-text">{{ doctor.about }}</p>
-      <div class="search__details-tags">
-        <span *ngFor="let tag of doctor.tags">{{ tag }}</span>
-      </div>
-      <button type="button" class="search__details-action">Записаться на приём</button>
-    </aside>
   </div>
 </section>

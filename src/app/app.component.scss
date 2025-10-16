@@ -1,7 +1,64 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: radial-gradient(140% 140% at 50% 20%, rgba(10, 23, 72, 0.08), rgba(10, 23, 72, 0.75));
+  position: relative;
+}
+
+:host::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url('assets/anima/box/frame-18.png') center/cover no-repeat;
+  opacity: 0.45;
+  filter: saturate(110%) brightness(105%);
+  z-index: -2;
+}
+
+:host::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(10, 23, 72, 0.25));
+  z-index: -1;
+}
+
 .app-shell {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: clamp(1.5rem, 4vw, 3rem);
+  position: relative;
+}
+
+.app-shell__back {
+  position: absolute;
+  top: clamp(1rem, 4vw, 2rem);
+  left: clamp(1rem, 4vw, 2rem);
+  padding: 0.55rem 1.25rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(10, 23, 72, 0.28);
+  color: #fff;
+  font: 600 0.9rem/1.2 'SF Pro Text', 'Inter', sans-serif;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform 150ms ease, opacity 150ms ease;
+}
+
+.app-shell__back:hover {
+  transform: translateY(-1px);
+  opacity: 0.85;
+}
+
+@media (max-width: 768px) {
+  :host::before {
+    opacity: 0.55;
+  }
+
+  .app-shell__back {
+    left: clamp(0.75rem, 4vw, 1.5rem);
+  }
 }

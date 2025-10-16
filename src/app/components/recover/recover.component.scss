@@ -1,144 +1,142 @@
 :host {
+  display: block;
+}
+
+.recover-screen {
+  position: relative;
+  min-height: clamp(520px, 80vh, 680px);
+  width: min(100%, 520px);
+  border-radius: 40px;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3rem);
-  background: radial-gradient(120% 120% at 50% 10%, rgba(10, 23, 72, 0.12), rgba(10, 23, 72, 0.75));
+  box-shadow: 0 32px 64px rgba(12, 26, 75, 0.22);
 }
 
-[data-model-id='1850:1842'] {
-  width: min(100%, 393px);
-  min-height: 374px;
+.recover-screen__background {
+  position: absolute;
+  inset: 0;
+  background: url('assets/anima/box/frame-18.png') center/cover no-repeat;
+  filter: blur(2px) saturate(104%);
+  transform: scale(1.05);
+}
+
+.recover-card {
+  position: relative;
+  width: min(100%, 360px);
+  margin: clamp(2rem, 8vw, 3rem) auto;
+  padding: clamp(2.25rem, 7vw, 3rem) clamp(1.75rem, 6vw, 2.5rem);
   display: flex;
   flex-direction: column;
-  gap: clamp(1.5rem, 4vw, 2.75rem);
-  padding: clamp(2.25rem, 5vw, 3rem) clamp(1.75rem, 4vw, 2.25rem);
+  gap: clamp(1.5rem, 5vw, 2.25rem);
+  background: rgba(255, 255, 255, 0.32);
   border-radius: 32px;
-  background: rgba(255, 255, 255, 0.24);
+  backdrop-filter: blur(32px) brightness(105%) saturate(110%);
+  -webkit-backdrop-filter: blur(32px) brightness(105%) saturate(110%);
   box-shadow:
-    0 32px 64px rgba(0, 0, 0, 0.24),
+    0 32px 64px rgba(0, 0, 0, 0.22),
     inset 0 1px 0 rgba(255, 255, 255, 0.4),
     inset 1px 0 0 rgba(255, 255, 255, 0.32),
-    inset 0 -1px 21px rgba(0, 0, 0, 0.13),
-    inset -1px 0 21px rgba(0, 0, 0, 0.11);
-  backdrop-filter: blur(28px) brightness(100%);
-  -webkit-backdrop-filter: blur(28px) brightness(100%);
-  position: relative;
+    inset 0 -1px 21px rgba(0, 0, 0, 0.12),
+    inset -1px 0 21px rgba(0, 0, 0, 0.1);
 }
 
-[data-model-id='1850:1842'] > button {
+.recover-card__close {
   position: absolute;
   top: clamp(1.25rem, 4vw, 1.75rem);
   right: clamp(1.25rem, 4vw, 1.75rem);
-  width: clamp(2.25rem, 6vw, 2.5rem);
-  aspect-ratio: 1;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(10, 23, 72, 0.2);
   display: grid;
   place-items: center;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  background: rgba(10, 23, 72, 0.16);
+  cursor: pointer;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   transition: transform 150ms ease, opacity 150ms ease;
 }
 
-[data-model-id='1850:1842'] > button:hover {
+.recover-card__close:hover {
   transform: scale(1.05);
   opacity: 0.85;
 }
 
-[data-model-id='1850:1842'] > button:active {
-  transform: scale(0.96);
-}
-
-[data-model-id='1850:1842'] > img {
-  width: clamp(180px, 60%, 258px);
+.recover-card__logo {
+  width: clamp(180px, 60%, 240px);
   height: auto;
   align-self: center;
+  filter: drop-shadow(0 16px 32px rgba(12, 26, 75, 0.18));
 }
 
-[data-model-id='1850:1842'] form {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-[data-model-id='1850:1842'] form > div {
-  width: min(100%, 345px);
+.recover-card__form {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: clamp(1rem, 3vw, 1.5rem);
 }
 
-[data-model-id='1850:1842'] form > div > div {
+.recover-card__field {
   display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1rem;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.85rem 1rem;
   border-radius: 18px;
-  background: rgba(10, 23, 72, 0.05);
+  background: rgba(10, 23, 72, 0.06);
   border: 1px solid transparent;
-  transition: border-color 150ms ease, background-color 150ms ease;
+  transition: border 150ms ease, background 150ms ease;
 }
 
-[data-model-id='1850:1842'] input[type='email'] {
-  width: 100%;
+.recover-card__field:focus-within {
+  border-color: rgba(10, 23, 72, 0.25);
+  background: rgba(10, 23, 72, 0.1);
+}
+
+.recover-card__label {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(10, 23, 72, 0.55);
+}
+
+.recover-card__field input {
   border: 0;
   background: transparent;
-  font: 500 1.0625rem/1.35 'SF Pro Text', 'Helvetica', sans-serif;
-  color: rgba(10, 23, 72, 0.92);
+  font: 500 1rem/1.4 'SF Pro Text', 'Inter', sans-serif;
+  color: rgba(10, 23, 72, 0.9);
   outline: none;
-  caret-color: rgba(10, 23, 72, 0.8);
 }
 
-[data-model-id='1850:1842'] input::placeholder {
+.recover-card__field input::placeholder {
   color: rgba(10, 23, 72, 0.45);
 }
 
-[data-model-id='1850:1842'] form > div > div:focus-within {
-  border-color: rgba(10, 23, 72, 0.2);
-  background: rgba(10, 23, 72, 0.08);
-}
-
-[data-model-id='1850:1842'] button[type='submit'] {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.625rem;
-  padding: 0.85rem 1.5rem;
+.recover-card__submit {
+  align-self: center;
+  padding: 0.85rem 1.75rem;
   border-radius: 999px;
-  border: 1px solid rgba(10, 23, 72, 0.4);
-  background: rgba(10, 23, 72, 0.8);
+  border: 1px solid rgba(10, 23, 72, 0.35);
+  background: rgba(10, 23, 72, 0.88);
   color: #fff;
-  font: 500 0.95rem/1.4 'SF Pro Text', 'Helvetica', sans-serif;
+  font: 600 0.95rem/1.4 'SF Pro Text', 'Inter', sans-serif;
   cursor: pointer;
-  backdrop-filter: blur(12px) brightness(100%);
-  -webkit-backdrop-filter: blur(12px) brightness(100%);
-  transition: opacity 150ms ease, transform 150ms ease;
+  box-shadow: 0 20px 40px rgba(10, 23, 72, 0.28);
+  transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease;
 }
 
-[data-model-id='1850:1842'] button[type='submit']:hover {
-  opacity: 0.9;
+.recover-card__submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 28px 56px rgba(10, 23, 72, 0.3);
+  background: rgba(10, 23, 72, 0.94);
 }
 
-[data-model-id='1850:1842'] button[type='submit']:active {
-  transform: translateY(1px);
-}
-
-@media (max-width: 480px) {
-  :host {
-    padding: clamp(1.5rem, 6vw, 2rem);
+@media (max-width: 520px) {
+  .recover-screen {
+    border-radius: 32px;
   }
 
-  [data-model-id='1850:1842'] {
-    width: 100%;
-    padding: clamp(1.75rem, 6vw, 2.25rem) clamp(1.25rem, 6vw, 1.75rem);
-    border-radius: 28px;
-  }
-
-  [data-model-id='1850:1842'] > button {
-    right: clamp(0.75rem, 6vw, 1.25rem);
-    top: clamp(0.75rem, 6vw, 1.25rem);
+  .recover-card {
+    margin: clamp(1.5rem, 10vw, 2.5rem) 1.25rem;
   }
 }

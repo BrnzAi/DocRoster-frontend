@@ -1,6 +1,21 @@
 <div class="app-shell">
+  <button
+    class="app-shell__back"
+    type="button"
+    *ngIf="activeScreen !== 'box'"
+    (click)="goToBox()"
+    aria-label="Back to sign in"
+  >
+    ← Back
+  </button>
+
   <ng-container [ngSwitch]="activeScreen">
-    <app-box *ngSwitchCase="'box'"></app-box>
-    <app-recover *ngSwitchCase="'recover'"></app-recover>
+    <app-box
+      *ngSwitchCase="'box'"
+      (forgotPassword)="openRecover()"
+      (signInCompleted)="handleSignIn()"
+    ></app-box>
+    <app-recover *ngSwitchCase="'recover'" (close)="closeRecover()"></app-recover>
+    <app-search *ngSwitchCase="'search'"></app-search>
   </ng-container>
 </div>
