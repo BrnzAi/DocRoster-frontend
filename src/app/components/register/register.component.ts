@@ -49,4 +49,8 @@ export class RegisterComponent {
     this.isLoading = false;
     alert(`${provider} registration would be implemented here.`);
   }
+
+  protected showTerms(): void {
+    window.alert('Terms and Conditions would open here.');
+  }
 }

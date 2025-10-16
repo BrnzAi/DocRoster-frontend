@@ -47,14 +47,14 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "docroster:build"
+            "buildTarget": "docroster:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "docroster:build:production"
+              "buildTarget": "docroster:build:production"
             },
             "development": {
-              "browserTarget": "docroster:build:development"
+              "buildTarget": "docroster:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -62,7 +62,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "docroster:build"
+            "buildTarget": "docroster:build"
           }
         },
         "test": {
@@ -79,5 +79,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
