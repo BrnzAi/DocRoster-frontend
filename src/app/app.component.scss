@@ -84,3 +84,11 @@
     left: clamp(0.75rem, 4vw, 1.5rem);
   }
 }
+
+@media (max-width: 640px) {
+  .app-shell {
+    align-items: flex-start;
+    padding-top: clamp(4.5rem, 14vw, 6rem);
+    padding-bottom: clamp(2rem, 10vw, 3rem);
+  }
+}

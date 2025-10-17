@@ -1,0 +1,140 @@
+<section class="filters" aria-labelledby="filters-heading">
+  <header class="filters__header">
+    <div>
+      <h1 id="filters-heading" class="filters__title">Filters</h1>
+      <p class="filters__subtitle">Fine-tune the search results to find the right specialist.</p>
+    </div>
+
+    <div class="filters__actions">
+      <button type="button" class="filters__clear" (click)="clearFilters()" [disabled]="!hasChanges">
+        Reset
+      </button>
+      <button type="button" class="filters__apply" (click)="applyFilters()" [disabled]="!hasChanges">
+        Apply filters
+      </button>
+    </div>
+  </header>
+
+  <div class="filters__content">
+    <section class="filters-section" aria-labelledby="filters-locations-heading">
+      <header class="filters-section__header">
+        <h2 id="filters-locations-heading" class="filters-section__title">Locations</h2>
+        <p class="filters-section__description">Choose one or more preferred clinic locations.</p>
+      </header>
+
+      <div class="filters-chips" role="group" aria-label="Locations">
+        <button
+          type="button"
+          *ngFor="let option of locationOptions"
+          class="filters-chip"
+          [class.filters-chip--active]="option.selected"
+          (click)="toggleLocation(option.id)"
+          [attr.aria-pressed]="option.selected"
+        >
+          {{ option.label }}
+        </button>
+      </div>
+    </section>
+
+    <section class="filters-section" aria-labelledby="filters-field-heading">
+      <header class="filters-section__header">
+        <h2 id="filters-field-heading" class="filters-section__title">Field of practice</h2>
+        <p class="filters-section__description">Filter by the specialist’s primary area of practice.</p>
+      </header>
+
+      <ul class="filters-list" role="list">
+        <li *ngFor="let option of fieldOptions" class="filters-list__item">
+          <button
+            type="button"
+            class="filters-list-item"
+            [class.filters-list-item--active]="option.selected"
+            (click)="toggleField(option.id)"
+            [attr.aria-pressed]="option.selected"
+          >
+            <span class="filters-list-item__badge" *ngIf="option.badge" aria-hidden="true">{{ option.badge }}</span>
+            <span class="filters-list-item__label">{{ option.label }}</span>
+            <span class="filters-list-item__meta" *ngIf="option.count !== undefined">
+              {{ option.count === 1 ? '1 specialist' : option.count + ' specialists' }}
+            </span>
+          </button>
+        </li>
+      </ul>
+    </section>
+
+    <section class="filters-section" aria-labelledby="filters-specialty-heading">
+      <header class="filters-section__header">
+        <h2 id="filters-specialty-heading" class="filters-section__title">Specialty</h2>
+        <p class="filters-section__description">Surface subspecialties based on the selected field.</p>
+      </header>
+
+      <ul class="filters-list" role="list">
+        <li *ngFor="let option of specialtyOptions" class="filters-list__item">
+          <button
+            type="button"
+            class="filters-list-item"
+            [class.filters-list-item--active]="option.selected"
+            [class.filters-list-item--disabled]="option.disabled"
+            (click)="toggleSpecialty(option.id)"
+            [attr.aria-pressed]="option.selected"
+            [disabled]="option.disabled"
+          >
+            <span class="filters-list-item__badge" *ngIf="option.badge" aria-hidden="true">{{ option.badge }}</span>
+            <span class="filters-list-item__label">{{ option.label }}</span>
+            <span class="filters-list-item__meta" *ngIf="option.count !== undefined">
+              {{ option.count === 0 ? 'No specialists' : option.count + ' specialists' }}
+            </span>
+          </button>
+        </li>
+      </ul>
+    </section>
+
+    <section class="filters-section" aria-labelledby="filters-assessment-heading">
+      <header class="filters-section__header">
+        <h2 id="filters-assessment-heading" class="filters-section__title">Assessment type</h2>
+        <p class="filters-section__description">Select how patients will meet the specialist.</p>
+      </header>
+
+      <ul class="filters-list" role="list">
+        <li *ngFor="let option of assessmentOptions" class="filters-list__item">
+          <button
+            type="button"
+            class="filters-list-item"
+            [class.filters-list-item--active]="option.selected"
+            [class.filters-list-item--disabled]="option.disabled"
+            (click)="toggleAssessment(option.id)"
+            [attr.aria-pressed]="option.selected"
+            [disabled]="option.disabled"
+          >
+            <span class="filters-list-item__badge" *ngIf="option.badge" aria-hidden="true">{{ option.badge }}</span>
+            <span class="filters-list-item__label">{{ option.label }}</span>
+            <span class="filters-list-item__meta" *ngIf="option.meta">{{ option.meta }}</span>
+          </button>
+        </li>
+      </ul>
+    </section>
+
+    <section class="filters-section" aria-labelledby="filters-other-heading">
+      <header class="filters-section__header">
+        <h2 id="filters-other-heading" class="filters-section__title">Other options</h2>
+        <p class="filters-section__description">Toggle additional requirements for the search results.</p>
+      </header>
+
+      <ul class="filters-toggle-list" role="list">
+        <li *ngFor="let option of otherOptions" class="filters-toggle-list__item">
+          <label class="filters-toggle">
+            <input
+              type="checkbox"
+              class="filters-toggle__input"
+              [checked]="option.selected"
+              (change)="toggleOtherOption(option.id)"
+            />
+            <div class="filters-toggle__content">
+              <span class="filters-toggle__label">{{ option.label }}</span>
+              <span class="filters-toggle__description">{{ option.description }}</span>
+            </div>
+          </label>
+        </li>
+      </ul>
+    </section>
+  </div>
+</section>

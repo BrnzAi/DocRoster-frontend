@@ -1,64 +1,56 @@
-<section class="register">
-  <button type="button" class="register__back" (click)="handleBack()" aria-label="Back to sign in">
-    <span class="register__back-icon" aria-hidden="true">
-      <svg width="14" height="14" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M8.84976 0.491637C8.753 0.39463 8.63805 0.317666 8.5115 0.265152C8.38494 0.212639 8.24927 0.185608 8.11226 0.185608C7.97524 0.185608 7.83958 0.212639 7.71302 0.265152C7.58647 0.317666 7.47152 0.39463 7.37476 0.491637L0.449758 7.41664C0.372505 7.49373 0.311216 7.5853 0.269398 7.68612C0.22758 7.78693 0.206055 7.895 0.206055 8.00414C0.206055 8.11328 0.22758 8.22134 0.269398 8.32216C0.311216 8.42297 0.372505 8.51454 0.449758 8.59164L7.37476 15.5166C7.78309 15.925 8.44143 15.925 8.84976 15.5166C9.25809 15.1083 9.25809 14.45 8.84976 14.0416L2.81643 7.99997L8.85809 1.9583C9.25809 1.5583 9.25809 0.891637 8.84976 0.491637Z"
-          fill="#0A1748"
-        />
-      </svg>
-    </span>
-    <span class="register__back-label">Back</span>
-  </button>
+<section class="register-screen" aria-label="Create DocRoster account">
+  <div class="register-screen__background" aria-hidden="true"></div>
 
-  <div class="register__avatar">
-    <img src="assets/user.png" alt="Avatar" />
-    <button type="button" class="register__avatar-action" aria-label="Upload profile photo"></button>
-  </div>
+  <article class="register-card">
+    <div class="register-card__avatar">
+      <img src="assets/user.png" alt="Avatar" />
+      <button type="button" class="register-card__avatar-action" aria-label="Upload profile photo"></button>
+    </div>
 
-  <header class="register__header">
-    <h1>Register account</h1>
-    <p>Sign up to view and manage specialists</p>
-  </header>
+    <header class="register-card__header">
+      <h1>Register account</h1>
+      <p>Sign up to view and manage specialists</p>
+    </header>
 
-  <div class="register__socials">
-    <button type="button" (click)="signUpWith('Google')" [disabled]="isLoading">
-      <span class="register__social-icon register__social-icon--google" aria-hidden="true"></span>
-      Google
-    </button>
-    <button type="button" (click)="signUpWith('Apple')" [disabled]="isLoading">
-      <span class="register__social-icon register__social-icon--apple" aria-hidden="true"></span>
-      Apple
-    </button>
-  </div>
+    <div class="register-card__socials">
+      <button type="button" (click)="signUpWith('Google')" [disabled]="isLoading">
+        <span class="register-card__social-icon register-card__social-icon--google" aria-hidden="true"></span>
+        Google
+      </button>
+      <button type="button" (click)="signUpWith('Apple')" [disabled]="isLoading">
+        <span class="register-card__social-icon register-card__social-icon--apple" aria-hidden="true"></span>
+        Apple
+      </button>
+    </div>
 
-  <div class="register__divider"><span>OR</span></div>
+    <div class="register-card__divider" role="presentation"><span>OR</span></div>
 
-  <form class="register__form" (ngSubmit)="submitForm()">
-    <label>
-      <span>Person or company name *</span>
-      <input type="text" name="name" [(ngModel)]="formData.name" required />
+    <form class="register-card__form" (ngSubmit)="submitForm()">
+      <label>
+        <span>Person or company name *</span>
+        <input type="text" name="name" [(ngModel)]="formData.name" required />
+      </label>
+      <label>
+        <span>Email used for login *</span>
+        <input type="email" name="email" [(ngModel)]="formData.email" required />
+      </label>
+      <label>
+        <span>Phone number (optional)</span>
+        <input type="tel" name="phone" [(ngModel)]="formData.phone" />
+      </label>
+
+      <button type="submit" [disabled]="isLoading || !agreedToTerms">
+        <span *ngIf="isLoading" class="register-card__spinner" aria-hidden="true"></span>
+        {{ isLoading ? 'Creating account...' : 'Sign up to DocRoster' }}
+      </button>
+    </form>
+
+    <label class="register-card__terms">
+      <input type="checkbox" [(ngModel)]="agreedToTerms" name="terms" />
+      <span>
+        I've read and agree to the
+        <button type="button" (click)="showTerms()">Terms and Conditions</button>
+      </span>
     </label>
-    <label>
-      <span>Email used for login *</span>
-      <input type="email" name="email" [(ngModel)]="formData.email" required />
-    </label>
-    <label>
-      <span>Phone number (optional)</span>
-      <input type="tel" name="phone" [(ngModel)]="formData.phone" />
-    </label>
-
-    <button type="submit" [disabled]="isLoading || !agreedToTerms">
-      <span *ngIf="isLoading" class="register__spinner" aria-hidden="true"></span>
-      {{ isLoading ? 'Creating account...' : 'Sign up to DocRoster' }}
-    </button>
-  </form>
-
-  <label class="register__terms">
-    <input type="checkbox" [(ngModel)]="agreedToTerms" name="terms" />
-    <span>
-      I've read and agree to the
-      <button type="button" (click)="showTerms()">Terms and Conditions</button>
-    </span>
-  </label>
+  </article>
 </section>

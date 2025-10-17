@@ -1,281 +1,312 @@
-.register {
+:host {
+  display: block;
+}
+
+.register-screen {
+  position: relative;
+  width: min(100%, 520px);
+  min-height: clamp(640px, 88vh, 780px);
+  margin: clamp(2rem, 6vw, 3rem) auto;
+  padding: clamp(2.5rem, 6vw, 3.5rem) clamp(2rem, 6vw, 3rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 44px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.26);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 1px 0 0 rgba(255, 255, 255, 0.32),
+    inset 0 -1px 24px rgba(0, 0, 0, 0.18),
+    inset -1px 0 24px rgba(0, 0, 0, 0.14),
+    0 40px 80px rgba(10, 23, 72, 0.18);
+  backdrop-filter: blur(32px) brightness(106%) saturate(112%);
+  -webkit-backdrop-filter: blur(32px) brightness(106%) saturate(112%);
+}
+
+.register-screen__background {
+  position: absolute;
+  inset: 0;
+  background: url('/assets/anima/box/frame-18.png') center/cover no-repeat;
+  filter: saturate(108%) contrast(102%);
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+.register-card {
+  position: relative;
+  width: min(100%, 360px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(1.5rem, 3vw, 2rem);
+  gap: clamp(1.5rem, 4vw, 2.25rem);
+  text-align: center;
+  color: #0a1748;
+}
+
+.register-card__avatar {
   position: relative;
+  width: clamp(128px, 28vw, 164px);
+  height: clamp(128px, 28vw, 164px);
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 24px 48px rgba(10, 23, 72, 0.25);
+}
 
-  &__back {
-    position: absolute;
-    top: -1rem;
-    left: -1rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1.25rem;
-    border: 0;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.65);
-    color: var(--primary-color);
-    font: 600 0.95rem/1.2 'SF Pro Text', 'Inter', sans-serif;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow:
-      0 0 32px rgba(10, 23, 72, 0.16),
-      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+.register-card__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow:
-        0 16px 32px rgba(10, 23, 72, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4);
-    }
-  }
+.register-card__avatar-action {
+  position: absolute;
+  inset: auto 12px 12px auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--primary-color);
+  color: #fff;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 18px 32px rgba(10, 23, 72, 0.3);
+}
 
-  &__back-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 18px;
-    height: 18px;
-  }
+.register-card__avatar-action::before {
+  content: '+';
+  font-size: 1.5rem;
+  line-height: 1;
+}
 
-  &__back-icon svg {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
+.register-card__header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
 
-  &__back-label {
-    letter-spacing: -0.02em;
-  }
+.register-card__header h1 {
+  margin: 0;
+  font: 700 clamp(1.9rem, 4vw, 2.4rem) / 1.2 'SF Pro Display', 'Inter', sans-serif;
+  letter-spacing: 0.02em;
+}
 
-  &__avatar {
-    position: relative;
-    width: clamp(120px, 28vw, 160px);
-    height: clamp(120px, 28vw, 160px);
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 24px 48px rgba(10, 23, 72, 0.25);
+.register-card__header p {
+  margin: 0;
+  color: var(--muted-text);
+  font: 500 0.95rem/1.5 'SF Pro Text', 'Inter', sans-serif;
+}
 
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
+.register-card__socials {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
 
-  &__avatar-action {
-    position: absolute;
-    bottom: 12px;
-    right: 12px;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    border: 0;
-    background: var(--primary-color);
-    color: white;
-    cursor: pointer;
+.register-card__socials button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(10, 23, 72, 0.92);
+  color: #fff;
+  font: 600 0.95rem/1.4 'SF Pro Text', 'Inter', sans-serif;
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+}
 
-    &::before {
-      content: '+';
-      font-size: 1.5rem;
-      line-height: 1;
-    }
-  }
+.register-card__socials button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(10, 23, 72, 0.25);
+}
 
-  &__header {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+.register-card__socials button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
-    h1 {
-      margin: 0;
-      font-size: clamp(1.75rem, 3vw, 2.25rem);
-      font-weight: 700;
-    }
+.register-card__social-icon {
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
 
-    p {
-      margin: 0;
-      color: var(--muted-text);
-      font-size: 0.95rem;
-    }
-  }
+.register-card__social-icon--google {
+  background-image: url('data:image/svg+xml,%3Csvg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="%234285F4"/%3E%3Cpath d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="%2334A853"/%3E%3Cpath d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="%23FBBC05"/%3E%3Cpath d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="%23EA4335"/%3E%3C/svg%3E');
+}
 
-  &__socials {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.75rem;
-    width: 100%;
+.register-card__social-icon--apple {
+  background-image: url('data:image/svg+xml,%3Csvg width="20" height="20" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.257 3.5177.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.51-1.31 2.99-2.54 4.09zm-5.02-13.03c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/%3E%3C/svg%3E');
+}
 
-    button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
-      padding: 0.75rem 1.5rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      background: rgba(10, 23, 72, 0.95);
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+.register-card__divider {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: rgba(10, 23, 72, 0.55);
+  letter-spacing: 0.2em;
+  font: 600 0.75rem/1 'SF Pro Text', 'Inter', sans-serif;
+}
 
-      &:hover:not(:disabled) {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 24px rgba(10, 23, 42, 0.2);
-      }
+.register-card__divider::before,
+.register-card__divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(10, 23, 72, 0.18);
+}
 
-      &:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-      }
-    }
-  }
+.register-card__form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
 
-  &__social-icon {
-    width: 20px;
-    height: 20px;
-    display: inline-block;
+.register-card__form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.85rem 1rem;
+  border-radius: 18px;
+  background: rgba(10, 23, 72, 0.06);
+  border: 1px solid transparent;
+  transition: border 0.2s ease, background 0.2s ease;
+}
 
-    &--google {
-      background: url('data:image/svg+xml,%3Csvg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="%234285F4"/%3E%3Cpath d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="%2334A853"/%3E%3Cpath d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="%23FBBC05"/%3E%3Cpath d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="%23EA4335"/%3E%3C/svg%3E')
-        center/contain no-repeat;
-    }
+.register-card__form label:focus-within {
+  border-color: rgba(10, 23, 72, 0.25);
+  background: rgba(10, 23, 72, 0.1);
+}
 
-    &--apple {
-      background: url('data:image/svg+xml,%3Csvg width="20" height="20" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.257 3.517 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.51-1.31 2.99-2.54 4.09zm-5.02-13.03c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/%3E%3C/svg%3E')
-        center/contain no-repeat;
-    }
-  }
+.register-card__form label span {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font: 600 0.72rem/1 'SF Pro Text', 'Inter', sans-serif;
+  color: rgba(10, 23, 72, 0.55);
+}
 
-  &__divider {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    width: 100%;
-    color: var(--muted-text);
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
+.register-card__form input {
+  border: 0;
+  background: transparent;
+  outline: none;
+  font: 600 1rem/1.4 'SF Pro Text', 'Inter', sans-serif;
+  color: rgba(10, 23, 72, 0.94);
+}
 
-    &::before,
-    &::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: rgba(10, 23, 72, 0.18);
-    }
-  }
+.register-card__form input::placeholder {
+  color: rgba(10, 23, 72, 0.45);
+}
 
-  &__form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+.register-card__form button {
+  margin-top: 0.25rem;
+  padding: 0.9rem 1.5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(10, 23, 72, 0.32);
+  background: rgba(10, 23, 72, 0.86);
+  color: #fff;
+  font: 600 1rem/1.4 'SF Pro Text', 'Inter', sans-serif;
+  cursor: pointer;
+  box-shadow: 0 28px 56px rgba(10, 23, 72, 0.28);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+}
 
-    label {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      padding: 0.75rem 1rem;
-      border-radius: 18px;
-      background: rgba(10, 23, 72, 0.05);
-      border: 1px solid transparent;
-      transition: border 0.2s ease, background 0.2s ease;
+.register-card__form button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 36px 64px rgba(10, 23, 72, 0.3);
+  background: rgba(10, 23, 72, 0.94);
+}
 
-      &:focus-within {
-        border-color: rgba(10, 23, 72, 0.25);
-        background: rgba(10, 23, 72, 0.08);
-      }
+.register-card__form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
-      span {
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
-        font-size: 0.75rem;
-        color: rgba(10, 23, 72, 0.55);
-      }
+.register-card__spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  animation: register-spinner 0.8s linear infinite;
+}
 
-      input {
-        border: 0;
-        background: transparent;
-        font-size: 1rem;
-        font-weight: 500;
-        color: var(--primary-color);
-        outline: none;
-      }
-    }
-
-    button {
-      margin-top: 0.5rem;
-      padding: 0.85rem 1.5rem;
-      border-radius: 999px;
-      border: 0;
-      background: var(--accent-color);
-      color: white;
-      font-weight: 600;
-      font-size: 1rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-      &:hover:not(:disabled) {
-        transform: translateY(-2px);
-        box-shadow: 0 20px 40px rgba(79, 70, 229, 0.35);
-      }
-
-      &:disabled {
-        opacity: 0.65;
-        cursor: not-allowed;
-        box-shadow: none;
-      }
-    }
-  }
-
-  &__spinner {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.4);
-    border-top-color: white;
-    animation: spin 0.6s linear infinite;
-  }
-
-  &__terms {
-    display: flex;
-    gap: 0.75rem;
-    width: 100%;
-    align-items: flex-start;
-    font-size: 0.9rem;
-
-    input {
-      margin-top: 0.2rem;
-      width: 18px;
-      height: 18px;
-    }
-
-    span {
-      color: var(--primary-color);
-
-      button {
-        border: 0;
-        background: none;
-        color: inherit;
-        font-weight: 600;
-        text-decoration: underline;
-        cursor: pointer;
-      }
-    }
+@keyframes register-spinner {
+  to {
+    transform: rotate(360deg);
   }
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
+.register-card__terms {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  font: 500 0.85rem/1.5 'SF Pro Text', 'Inter', sans-serif;
+  color: rgba(10, 23, 72, 0.75);
+}
+
+.register-card__terms input {
+  margin-top: 0.2rem;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+}
+
+.register-card__terms button {
+  border: 0;
+  background: none;
+  color: var(--primary-color);
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .register-screen {
+    width: min(100%, 420px);
+    border-radius: 36px;
+    padding: clamp(2rem, 8vw, 2.75rem) clamp(1.5rem, 6vw, 2.25rem);
+    margin: clamp(1.5rem, 10vw, 2.5rem) auto;
+  }
+
+  .register-card {
+    width: 100%;
+    gap: clamp(1.25rem, 5vw, 1.75rem);
+  }
+
+  .register-card__socials {
+    grid-template-columns: 1fr;
+  }
+
+  .register-card__form label {
+    padding-inline: 0.75rem;
+  }
+
+  .register-card__terms {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-screen {
+    border-radius: 28px;
+    padding: 2rem 1.25rem 2.5rem;
+  }
+
+  .register-card__avatar {
+    width: 120px;
+    height: 120px;
   }
 }
