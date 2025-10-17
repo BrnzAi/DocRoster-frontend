@@ -1,174 +1,117 @@
-<div
-  class="bg-[#ffffff3d] overflow-hidden w-full min-w-[393px] min-h-[808px] relative"
-  data-model-id="1801:1769"
+<section
+  class="specialist"
   aria-label="Specialist profile"
   [attr.data-specialist-id]="specialistId ?? undefined"
 >
-  <div class="absolute top-0 -left-9 w-[465px] h-[764px]">
-    <img
-      class="absolute top-0 left-0 w-[465px] h-[420px] object-cover"
-      alt="Dr. Emily Carter"
-      src="assets/anima/specialist/image.svg"
-    />
+  <button class="specialist__close" type="button" aria-label="Close profile" (click)="handleClose()">
+    <img src="assets/anima/specialist/close.svg" alt="" />
+  </button>
 
-    <div class="flex flex-col w-[393px] items-start gap-6 p-6 absolute top-[300px] left-[calc(50.00%_-_196px)]">
-      <div class="flex flex-col items-start gap-3 relative self-stretch w-full flex-[0_0_auto]">
-        <h1 class="relative self-stretch mt-[-1.00px] [font-family:'SF_Pro_Display-Bold',Helvetica] font-bold text-[#0a1748] text-[32px] tracking-[0.37px] leading-[38.4px]">
-          {{ intro.name }}
-        </h1>
+  <div class="specialist__hero">
+    <div class="specialist__photo-wrapper">
+      <img class="specialist__photo" alt="{{ intro.name }}" src="assets/anima/specialist/image.svg" />
+      <span class="specialist__accent" aria-hidden="true">
+        <img src="assets/anima/specialist/vector-11.svg" alt="" />
+      </span>
+    </div>
 
-        <p class="relative self-stretch opacity-60 [font-family:'SF_UI_Display-Regular',Helvetica] font-normal text-[#0a1748] text-lg tracking-[-0.50px] leading-[21.6px]">
-          <ng-container *ngFor="let line of splitLines(intro.biography); let last = last">
-            {{ line }}<br *ngIf="!last" />
-          </ng-container>
-        </p>
+    <div class="specialist__intro">
+      <h1 class="specialist__name">{{ intro.name }}</h1>
 
-        <div class="flex items-center gap-3 relative self-stretch w-full flex-[0_0_auto] overflow-x-scroll">
-          <button
-            class="inline-flex flex-[0_0_auto] bg-[#0a1748] h-[46px] items-center justify-center gap-2 pl-[18px] pr-6 py-3 relative rounded-[1000px] border border-solid border-[#ff3c9533] backdrop-blur-md backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(12px)_brightness(100%)]"
-            type="button"
-            aria-label="Call now"
-          >
-            <div class="relative w-6 h-6 mt-[-1.00px] mb-[-1.00px] aspect-[1]">
-              <img
-                class="absolute w-[75.00%] h-[75.00%] top-[12.50%] left-[12.50%]"
-                alt=""
-                src="assets/anima/specialist/vector.svg"
-              />
-            </div>
+      <p class="specialist__bio">
+        <ng-container *ngFor="let line of splitLines(intro.biography); let last = last">
+          {{ line }}<br *ngIf="!last" />
+        </ng-container>
+      </p>
 
-            <span class="relative flex items-center justify-center w-fit mt-[-1.00px] [font-family:'SF_Pro_Text-Semibold',Helvetica] font-normal text-white text-sm text-center tracking-[-0.41px] leading-[22.4px] whitespace-nowrap">
-              Call now
-            </span>
-          </button>
+      <div class="specialist__actions" role="group" aria-label="Contact actions">
+        <button
+          type="button"
+          class="specialist__action specialist__action--primary"
+          aria-label="Call now"
+        >
+          <span class="specialist__action-icon" aria-hidden="true">
+            <img src="assets/anima/specialist/vector.svg" alt="" />
+          </span>
+          <span>Call now</span>
+        </button>
 
-          <button
-            class="inline-flex flex-[0_0_auto] h-[46px] items-center justify-center gap-2 pl-[18px] pr-6 py-3 relative rounded-[1000px] border border-solid border-[#ff3c9533] backdrop-blur-md backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(12px)_brightness(100%)]"
-            type="button"
-            aria-label="Navigate"
-          >
-            <div class="relative w-6 h-6 mt-[-1.00px] mb-[-1.00px] aspect-[1]">
-              <img
-                class="absolute w-[62.50%] h-[79.17%] top-[8.33%] left-[18.75%]"
-                alt=""
-                src="assets/anima/specialist/vector-1.svg"
-              />
-            </div>
-
-            <span class="relative flex items-center justify-center w-fit mt-[-1.00px] [font-family:'SF_Pro_Text-Semibold',Helvetica] font-normal text-[#0a1748] text-sm text-center tracking-[-0.41px] leading-[22.4px] whitespace-nowrap">
-              Navigate
-            </span>
-          </button>
-        </div>
+        <button
+          type="button"
+          class="specialist__action specialist__action--secondary"
+          aria-label="Navigate"
+        >
+          <span class="specialist__action-icon" aria-hidden="true">
+            <img src="assets/anima/specialist/vector-1.svg" alt="" />
+          </span>
+          <span>Navigate</span>
+        </button>
       </div>
     </div>
   </div>
 
-  <div class="flex flex-col w-[393px] items-start absolute top-[764px] left-[calc(50.00%_-_196px)]">
-    <section class="flex flex-col items-start gap-4 p-6 relative self-stretch w-full flex-[0_0_auto] border-t [border-top-style:solid] border-[#0a17481a]" aria-labelledby="specializations-title">
-      <h2 class="inline-flex items-center justify-center gap-1 relative flex-[0_0_auto]">
-        <span id="specializations-title" class="relative flex items-center justify-center w-fit mt-[-1.00px] [font-family:'SF_Pro_Text-Bold',Helvetica] font-bold text-[#0a1748] text-lg tracking-[-0.41px] leading-[22px] whitespace-nowrap">
-          SPECIALIZATIONS
-        </span>
-      </h2>
+  <div class="specialist__body">
+    <section class="specialist__panel" aria-labelledby="specializations-title">
+      <h2 id="specializations-title" class="specialist__panel-title">Specializations</h2>
 
-      <div *ngFor="let spec of specializations" class="flex items-center gap-4 relative self-stretch w-full flex-[0_0_auto]">
-        <div
-          class="relative w-14 h-14 rounded-[28px] border border-solid border-[#0a174833] backdrop-blur-md backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(12px)_brightness(100%)]"
-          [ngClass]="{
-            'bg-[#0a1748cc]': spec.tint === 'midnight',
-            'bg-[#0a17481a]': spec.tint === 'mist'
-          }"
-        >
-          <div class="relative top-4 left-4 w-6 h-6">
-            <img
-              class="absolute"
-              [ngStyle]="spec.offsets"
-              alt=""
-              [src]="spec.icon"
-            />
-          </div>
-        </div>
-
-        <div class="flex flex-col items-start gap-1 relative flex-1 self-stretch grow">
-          <div class="relative self-stretch mt-[-1.00px] [font-family:'SF_UI_Display-Bold',Helvetica] font-bold text-[#0a1748] text-lg tracking-[-0.50px] leading-[19.8px]">
-            <ng-container *ngFor="let line of splitLines(spec.title); let last = last">
-              {{ line }}<br *ngIf="!last" />
-            </ng-container>
-          </div>
-
-          <div class="relative flex items-center justify-center self-stretch [font-family:'SF_Pro_Text-Regular',Helvetica] font-normal text-[#0a174899] text-sm tracking-[-0.41px] leading-[15.4px]">
-            {{ spec.subtitle }}
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="flex flex-col items-start gap-3 p-6 relative self-stretch w-full flex-[0_0_auto] overflow-x-scroll" aria-labelledby="availability-title">
-      <div class="flex flex-col items-start gap-3 relative self-stretch w-full flex-[0_0_auto] overflow-x-scroll">
-        <article class="flex flex-col items-start gap-6 p-6 relative self-stretch w-full flex-[0_0_auto] bg-[#0000000d] rounded-3xl overflow-hidden border border-solid border-[#0a17481a]">
-          <div class="flex flex-col items-start gap-3 relative self-stretch w-full flex-[0_0_auto]">
-            <div class="relative w-12 h-12 aspect-[1]">
-              <img class="absolute w-[83.33%] h-[75.00%] top-[12.50%] left-[8.33%]" alt="" src="assets/anima/specialist/vector-5.svg" />
-
-              <img class="absolute w-[60.04%] h-[41.67%] top-[29.17%] left-[20.83%]" alt="" src="assets/anima/specialist/vector-6.svg" />
-            </div>
-
-            <div class="flex flex-col items-start gap-[5px] relative self-stretch w-full flex-[0_0_auto]">
-              <p class="relative flex items-center justify-center self-stretch mt-[-1.00px] [font-family:'SF_Pro_Text-Bold',Helvetica] font-bold text-[#0a1748] text-lg tracking-[-0.41px] leading-[28.8px]">
-                {{ availability[0] }}
-              </p>
-
-              <p class="relative flex items-center justify-center self-stretch [font-family:'SF_Pro_Text-Bold',Helvetica] font-bold text-[#0a1748] text-lg tracking-[-0.41px] leading-[28.8px]">
-                {{ availability[1] }}
-              </p>
-
-              <p class="relative self-stretch opacity-60 [font-family:'SF_UI_Display-Regular',Helvetica] font-normal text-[#0a1748] text-lg tracking-[-0.50px] leading-[28.8px]">
-                {{ availability[2] }}
-              </p>
-            </div>
-          </div>
-
-          <button
-            class="flex self-stretch w-full bg-[#0a1748] h-[46px] items-center justify-center gap-2 pl-[18px] pr-6 py-3 relative rounded-[1000px] border border-solid border-[#ff3c9533] backdrop-blur-md backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(12px)_brightness(100%)]"
-            type="button"
-            aria-label="Make an appointment"
+      <ul class="specialist__feature-list">
+        <li class="specialist__feature" *ngFor="let spec of specializations">
+          <span
+            class="specialist__feature-icon"
+            [ngClass]="{
+              'specialist__feature-icon--midnight': spec.tint === 'midnight',
+              'specialist__feature-icon--mist': spec.tint === 'mist'
+            }"
           >
-            <span class="relative flex items-center justify-center w-fit mt-[-1.00px] [font-family:'SF_Pro_Text-Semibold',Helvetica] font-normal text-white text-sm text-center tracking-[-0.41px] leading-[22.4px] whitespace-nowrap">
-              Make an appointment
+            <img [src]="spec.icon" alt="" [ngStyle]="spec.offsets" />
+          </span>
+
+          <div class="specialist__feature-content">
+            <span class="specialist__feature-title">
+              <ng-container *ngFor="let line of splitLines(spec.title); let last = last">
+                {{ line }}<br *ngIf="!last" />
+              </ng-container>
             </span>
-          </button>
-        </article>
-      </div>
+            <span class="specialist__feature-subtitle">{{ spec.subtitle }}</span>
+          </div>
+        </li>
+      </ul>
     </section>
 
-    <section class="flex flex-col w-[393px] items-start gap-3 p-6 relative flex-[0_0_auto] overflow-x-scroll" aria-labelledby="contact-title">
-      <h2 id="contact-title" class="relative flex items-center justify-center w-fit mt-[-1.00px] [font-family:'SF_Pro_Text-Bold',Helvetica] font-bold text-[#0a1748] text-lg tracking-[-0.41px] leading-[21.6px] whitespace-nowrap">
-        CLINIC CONTACTS
-      </h2>
+    <section class="specialist__panel" aria-labelledby="availability-title">
+      <h2 id="availability-title" class="specialist__panel-title">Availability</h2>
 
-      <address class="flex flex-col items-start justify-center relative self-stretch w-full flex-[0_0_auto] overflow-x-scroll not-italic">
-        <div
-          *ngFor="let contact of contactInfo"
-          class="inline-flex h-12 items-center justify-center gap-2 relative rounded-[1000px] backdrop-blur-md backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(12px)_brightness(100%)]"
+      <article class="specialist__availability">
+        <span class="specialist__availability-icon" aria-hidden="true">
+          <img src="assets/anima/specialist/vector-5.svg" alt="" />
+          <img src="assets/anima/specialist/vector-6.svg" alt="" />
+        </span>
+
+        <ul class="specialist__availability-times">
+          <li *ngFor="let slot of availability">{{ slot }}</li>
+        </ul>
+
+        <button
+          type="button"
+          class="specialist__action specialist__action--primary specialist__action--full"
+          aria-label="Make an appointment"
         >
-          <div class="relative w-6 h-6 aspect-[1]">
-            <img class="absolute" [ngStyle]="contact.offsets" alt="" [src]="contact.icon" />
-          </div>
+          Make an appointment
+        </button>
+      </article>
+    </section>
 
-          <div class="relative flex items-center justify-center w-fit [font-family:'SF_Pro_Text-Semibold',Helvetica] font-normal text-[#0a1748] text-sm text-center tracking-[-0.41px] leading-[22.4px] whitespace-nowrap">
-            {{ contact.text }}
-          </div>
+    <section class="specialist__panel" aria-labelledby="contact-title">
+      <h2 id="contact-title" class="specialist__panel-title">Clinic contacts</h2>
+
+      <address class="specialist__contact-list">
+        <div class="specialist__contact-item" *ngFor="let contact of contactInfo">
+          <span class="specialist__contact-icon" aria-hidden="true">
+            <img [src]="contact.icon" alt="" [ngStyle]="contact.offsets" />
+          </span>
+          <span class="specialist__contact-text">{{ contact.text }}</span>
         </div>
       </address>
     </section>
   </div>
-
-  <div class="absolute top-[328px] left-[259px] w-8 h-8 aspect-[1]" aria-hidden="true">
-    <img class="absolute w-[45.83%] h-[70.83%] top-[16.67%] left-[27.08%]" alt="" src="assets/anima/specialist/vector-11.svg" />
-  </div>
-
-  <button class="absolute top-6 right-6 w-9 h-9 aspect-[1]" type="button" aria-label="Close profile" (click)="handleClose()">
-    <img class="w-full h-full" alt="" src="assets/anima/specialist/close.svg" />
-  </button>
-</div>
+</section>

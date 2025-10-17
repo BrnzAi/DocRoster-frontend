@@ -22,6 +22,8 @@ export class SearchComponent {
   @Output() public profileRequested = new EventEmitter<number>();
 
   protected query = '';
+  protected readonly defaultQuery =
+    'Find me an Occupational Therapist who travels to Thunder Bay for catastrophic assessments';
 
   private readonly cards = signal<SearchResultCard[]>([
     {

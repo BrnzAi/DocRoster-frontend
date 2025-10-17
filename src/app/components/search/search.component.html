@@ -32,20 +32,23 @@
   <div class="search-screen__content">
     <header class="search-screen__summary">
       <span class="search-screen__eyebrow" id="search-results-heading">SEARCH RESULTS FOR</span>
-      <p class="search-screen__query">Find me an Occupational Therapist who travels to Thunder Bay for catastrophic assessments</p>
+      <p class="search-screen__query">{{ query.trim() ? query : defaultQuery }}</p>
     </header>
 
     <div class="search-screen__panel">
       <div class="search-screen__list" role="list">
-        <article
+        <button
+          type="button"
           class="search-card"
           *ngFor="let specialist of filteredResults()"
           role="listitem"
+          (click)="requestProfile(specialist.id)"
           [ngClass]="{
             'search-card--border-top': specialist.border === 'top-bottom',
             'search-card--border-bottom': specialist.border === 'top-bottom' || specialist.border === 'bottom',
             'search-card--flush': specialist.border === 'none'
           }"
+          [attr.aria-label]="'Open profile for ' + specialist.name"
         >
           <img [src]="specialist.avatar" [alt]="specialist.alt" class="search-card__avatar" />
 
@@ -53,7 +56,7 @@
             <h2>{{ specialist.name }}</h2>
             <p *ngFor="let detail of specialist.details">{{ detail }}</p>
           </div>
-        </article>
+        </button>
       </div>
     </div>
   </div>
