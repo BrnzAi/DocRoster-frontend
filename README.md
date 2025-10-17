@@ -50,6 +50,12 @@ Navigate to `http://localhost:4200/` to see the application.
 npm run build
 ```
 
+---
+
+### Deploying to GitHub Pages
+
+See [`guides/github-pages-deployment.md`](guides/github-pages-deployment.md) for end-to-end deployment steps, including how to build the dedicated `docs/` bundle and configure your repository settings.
+
 ## 🧪 Testing & Linting
 
 Angular CLI scaffolding is ready for future automated tests and linting:

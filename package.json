@@ -8,7 +8,9 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "build:github-pages": "ng build --configuration=github-pages",
+    "deploy:github-pages": "npm run build:github-pages && node tools/duplicate-index-to-404.mjs"
   },
   "dependencies": {
     "@angular/animations": "^20.0.0",
