@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
 
 interface FilterSelectableOption {
   readonly id: string;
@@ -23,7 +23,7 @@ interface FilterToggleOption extends FilterSelectableOption {
   readonly description: string;
 }
 
-interface FilterSelection {
+export interface FilterSelection {
   readonly locations: string[];
   readonly fields: string[];
   readonly specialties: string[];
@@ -34,12 +34,17 @@ interface FilterSelection {
 @Component({
   selector: 'app-filter-overlay',
   standalone: true,
-  imports: [NgClass, NgFor, NgIf],
+  imports: [NgFor, NgIf],
   templateUrl: './filter-overlay.component.html',
   styleUrls: ['./filter-overlay.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilterOverlayComponent {
+  @Input() public open = false;
+  @Output() public apply = new EventEmitter<FilterSelection>();
+  @Output() public reset = new EventEmitter<void>();
+  @Output() public close = new EventEmitter<void>();
+
   private readonly baseLocationOptions: readonly FilterChipOption[] = [
     { id: 'montreal', label: 'Montreal', selected: true },
     { id: 'quebec-city', label: 'Quebec City', selected: false },
@@ -79,11 +84,11 @@ export class FilterOverlayComponent {
     },
   ];
 
-  private readonly defaultLocationSelection = this.extractSelection(this.baseLocationOptions);
-  private readonly defaultFieldSelection = this.extractSelection(this.baseFieldOptions);
-  private readonly defaultSpecialtySelection = this.extractSelection(this.baseSpecialtyOptions);
-  private readonly defaultAssessmentSelection = this.extractSelection(this.baseAssessmentOptions);
-  private readonly defaultOtherSelection = this.extractSelection(this.baseOtherOptions);
+  private locationBaseline: readonly string[] = this.extractSelection(this.baseLocationOptions);
+  private fieldBaseline: readonly string[] = this.extractSelection(this.baseFieldOptions);
+  private specialtyBaseline: readonly string[] = this.extractSelection(this.baseSpecialtyOptions);
+  private assessmentBaseline: readonly string[] = this.extractSelection(this.baseAssessmentOptions);
+  private otherBaseline: readonly string[] = this.extractSelection(this.baseOtherOptions);
 
   protected locationOptions = this.cloneOptions(this.baseLocationOptions);
   protected fieldOptions = this.cloneOptions(this.baseFieldOptions);
@@ -93,11 +98,11 @@ export class FilterOverlayComponent {
 
   protected get hasChanges(): boolean {
     return !(
-      this.compareSelection(this.locationOptions, this.defaultLocationSelection) &&
-      this.compareSelection(this.fieldOptions, this.defaultFieldSelection) &&
-      this.compareSelection(this.specialtyOptions, this.defaultSpecialtySelection) &&
-      this.compareSelection(this.assessmentOptions, this.defaultAssessmentSelection) &&
-      this.compareSelection(this.otherOptions, this.defaultOtherSelection)
+      this.compareSelection(this.locationOptions, this.locationBaseline) &&
+      this.compareSelection(this.fieldOptions, this.fieldBaseline) &&
+      this.compareSelection(this.specialtyOptions, this.specialtyBaseline) &&
+      this.compareSelection(this.assessmentOptions, this.assessmentBaseline) &&
+      this.compareSelection(this.otherOptions, this.otherBaseline)
     );
   }
 
@@ -121,7 +126,24 @@ export class FilterOverlayComponent {
     this.otherOptions = this.toggleOption(this.otherOptions, id);
   }
 
-  protected clearFilters(): void {
+  protected requestClose(): void {
+    this.close.emit();
+  }
+
+  protected handleReset(): void {
+    this.resetFilters();
+    const selection = this.createSelection();
+    this.updateBaselines(selection);
+    this.reset.emit();
+  }
+
+  protected handleApply(): void {
+    const selection = this.createSelection();
+    this.updateBaselines(selection);
+    this.apply.emit(selection);
+  }
+
+  private resetFilters(): void {
     this.locationOptions = this.cloneOptions(this.baseLocationOptions);
     this.fieldOptions = this.cloneOptions(this.baseFieldOptions);
     this.specialtyOptions = this.cloneOptions(this.baseSpecialtyOptions);
@@ -129,7 +151,7 @@ export class FilterOverlayComponent {
     this.otherOptions = this.cloneOptions(this.baseOtherOptions);
   }
 
-  protected applyFilters(): FilterSelection {
+  private createSelection(): FilterSelection {
     return {
       locations: this.getSelectedIds(this.locationOptions),
       fields: this.getSelectedIds(this.fieldOptions),
@@ -137,6 +159,14 @@ export class FilterOverlayComponent {
       assessments: this.getSelectedIds(this.assessmentOptions),
       otherOptions: this.getSelectedIds(this.otherOptions),
     };
+  }
+
+  private updateBaselines(selection: FilterSelection): void {
+    this.locationBaseline = [...selection.locations];
+    this.fieldBaseline = [...selection.fields];
+    this.specialtyBaseline = [...selection.specialties];
+    this.assessmentBaseline = [...selection.assessments];
+    this.otherBaseline = [...selection.otherOptions];
   }
 
   private cloneOptions<T extends FilterSelectableOption>(options: readonly T[]): T[] {

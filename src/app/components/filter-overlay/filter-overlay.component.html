@@ -1,21 +1,33 @@
-<section class="filters" aria-labelledby="filters-heading">
-  <header class="filters__header">
-    <div>
-      <h1 id="filters-heading" class="filters__title">Filters</h1>
-      <p class="filters__subtitle">Fine-tune the search results to find the right specialist.</p>
-    </div>
+<div class="filters-overlay" [class.filters-overlay--open]="open" [attr.aria-hidden]="!open">
+  <div class="filters-overlay__backdrop" (click)="requestClose()" aria-hidden="true"></div>
 
-    <div class="filters__actions">
-      <button type="button" class="filters__clear" (click)="clearFilters()" [disabled]="!hasChanges">
-        Reset
-      </button>
-      <button type="button" class="filters__apply" (click)="applyFilters()" [disabled]="!hasChanges">
-        Apply filters
-      </button>
-    </div>
-  </header>
+  <section
+    class="filters"
+    aria-labelledby="filters-heading"
+    role="dialog"
+    [attr.aria-modal]="open ? true : null"
+    [attr.tabindex]="open ? 0 : -1"
+  >
+    <header class="filters__header">
+      <div>
+        <h1 id="filters-heading" class="filters__title">Filters</h1>
+        <p class="filters__subtitle">Fine-tune the search results to find the right specialist.</p>
+      </div>
 
-  <div class="filters__content">
+      <div class="filters__actions">
+        <button type="button" class="filters__close" (click)="requestClose()" aria-label="Close filters">
+          Close
+        </button>
+        <button type="button" class="filters__clear" (click)="handleReset()" [disabled]="!hasChanges">
+          Reset
+        </button>
+        <button type="button" class="filters__apply" (click)="handleApply()" [disabled]="!hasChanges">
+          Apply filters
+        </button>
+      </div>
+    </header>
+
+    <div class="filters__content">
     <section class="filters-section" aria-labelledby="filters-locations-heading">
       <header class="filters-section__header">
         <h2 id="filters-locations-heading" class="filters-section__title">Locations</h2>
@@ -136,5 +148,6 @@
         </li>
       </ul>
     </section>
-  </div>
-</section>
+    </div>
+  </section>
+</div>
