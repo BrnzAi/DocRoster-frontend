@@ -1,9 +1,19 @@
 <section class="search-screen" aria-labelledby="search-results-heading">
   <div class="search-screen__floating-bar">
-    <form class="search-screen__form" role="search" aria-label="Search for specialists" (submit)="$event.preventDefault()">
-      <span class="search-screen__icon" aria-hidden="true">
-        <img src="assets/anima/search/vector.svg" alt="" />
-      </span>
+    <form
+      class="search-screen__form"
+      role="search"
+      aria-label="Search for specialists"
+      (submit)="handleSubmit($event)"
+    >
+      <button
+        type="button"
+        class="search-screen__action search-screen__action--filters"
+        aria-label="Open filter options"
+        (click)="openFilters()"
+      >
+        <img src="assets/anima/search/vector-1.svg" alt="" />
+      </button>
 
       <label for="specialist-search" class="sr-only">Find a specialist</label>
       <input
@@ -17,12 +27,11 @@
       />
 
       <button
-        type="button"
-        class="search-screen__filter"
-        aria-label="Filter search results"
-        (click)="openFilters()"
+        type="submit"
+        class="search-screen__action search-screen__action--submit"
+        aria-label="Search specialists"
       >
-        <img src="assets/anima/search/vector-1.svg" alt="" />
+        <img src="assets/anima/search/vector.svg" alt="" />
       </button>
     </form>
 
@@ -38,7 +47,7 @@
   <div class="search-screen__content">
     <header class="search-screen__summary">
       <span class="search-screen__eyebrow" id="search-results-heading">SEARCH RESULTS FOR</span>
-      <p class="search-screen__query">{{ query.trim() ? query : defaultQuery }}</p>
+      <p class="search-screen__query">{{ displayedQuery }}</p>
     </header>
 
     <div class="search-screen__panel">

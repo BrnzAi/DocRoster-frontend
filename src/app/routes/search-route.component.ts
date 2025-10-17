@@ -1,13 +1,15 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { FilterOverlayComponent, FilterSelection } from '../components/filter-overlay/filter-overlay.component';
+import { FilterOverlayComponent } from '../components/filter-overlay/filter-overlay.component';
 import { SearchComponent } from '../components/search/search.component';
+import { FilterSelection } from '../models/filter-selection';
 
 @Component({
   standalone: true,
   imports: [SearchComponent, FilterOverlayComponent],
   template: `
     <app-search
+      [filters]="appliedFilters"
       (profileRequested)="openProfile($event)"
       (profilePageRequested)="openProfilePage()"
       (filterRequested)="openFilters()"

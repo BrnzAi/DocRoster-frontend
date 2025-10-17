@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
+import { FilterSelection } from '../../models/filter-selection';
 
 interface FilterSelectableOption {
   readonly id: string;
@@ -21,14 +22,6 @@ interface FilterListOption extends FilterSelectableOption {
 interface FilterToggleOption extends FilterSelectableOption {
   readonly label: string;
   readonly description: string;
-}
-
-export interface FilterSelection {
-  readonly locations: string[];
-  readonly fields: string[];
-  readonly specialties: string[];
-  readonly assessments: string[];
-  readonly otherOptions: string[];
 }
 
 @Component({

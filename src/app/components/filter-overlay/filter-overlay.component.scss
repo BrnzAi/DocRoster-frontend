@@ -8,6 +8,8 @@
   z-index: 10;
   display: grid;
   place-items: center;
+  padding: 2.5rem 1.5rem;
+  overflow-y: auto;
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.2s ease;
@@ -43,6 +45,8 @@
   box-shadow: 0 1.5rem 3rem rgba(10, 23, 72, 0.2);
   transform: translateY(1rem);
   transition: transform 0.2s ease;
+  max-height: min(90vh, 64rem);
+  overflow-y: auto;
 }
 
 .filters-overlay--open .filters {

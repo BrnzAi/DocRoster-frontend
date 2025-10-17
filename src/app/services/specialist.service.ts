@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SPECIALISTS, Specialist, SpecialistSearchResultBorder } from '../data/specialists';
+import { FilterSelection } from '../models/filter-selection';
 
 export interface SpecialistSearchResult {
   id: number;
@@ -14,7 +15,7 @@ export interface SpecialistSearchResult {
 export class SpecialistService {
   private readonly specialists = SPECIALISTS;
 
-  public async search(term: string): Promise<SpecialistSearchResult[]> {
+  public async search(term: string, selection?: FilterSelection): Promise<SpecialistSearchResult[]> {
     const normalizedTerm = term.trim().toLowerCase();
 
     const results = !normalizedTerm
@@ -22,6 +23,8 @@ export class SpecialistService {
       : this.specialists.filter((specialist) =>
           this.buildSearchIndex(specialist).some((value) => value.includes(normalizedTerm)),
         );
+
+    void selection;
 
     await this.simulateNetworkLatency(260, 180);
 
