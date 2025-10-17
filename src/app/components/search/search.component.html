@@ -1,47 +1,60 @@
-<section class="search-screen" aria-label="Search specialists">
-  <header class="search-screen__hero">
-    <div class="search-screen__field">
-      <label for="specialist" class="sr-only">Find a specialist</label>
+<section class="search-screen" aria-labelledby="search-results-heading">
+  <div class="search-screen__floating-bar">
+    <form class="search-screen__form" role="search" aria-label="Search for specialists" (submit)="$event.preventDefault()">
+      <span class="search-screen__icon" aria-hidden="true">
+        <img src="assets/anima/search/vector.svg" alt="" />
+      </span>
+
+      <label for="specialist-search" class="sr-only">Find a specialist</label>
       <input
-        id="specialist"
+        id="specialist-search"
         type="search"
         placeholder="Find a specialist..."
         [(ngModel)]="query"
+        name="search"
+        aria-label="Find a specialist"
       />
-    </div>
-    <div class="search-screen__field">
-      <label for="location" class="sr-only">City or location</label>
-      <input
-        id="location"
-        type="search"
-        placeholder="Thunder Bay, Winnipeg..."
-        [(ngModel)]="location"
-      />
-    </div>
-    <button type="button" class="search-screen__action">Search</button>
-    <button type="button" class="search-screen__profile" (click)="openHighlightedProfile()">Profile</button>
-  </header>
+
+      <button type="button" class="search-screen__filter" aria-label="Filter search results">
+        <img src="assets/anima/search/vector-1.svg" alt="" />
+      </button>
+    </form>
+
+    <button type="button" class="search-screen__profile" (click)="openHighlightedProfile()" aria-label="Go to profile">
+      <span class="search-screen__profile-icon" aria-hidden="true">
+        <img src="assets/anima/search/vector-2.svg" alt="" />
+        <img src="assets/anima/search/vector-3.svg" alt="" />
+      </span>
+      <span>Profile</span>
+    </button>
+  </div>
 
   <div class="search-screen__content">
-    <div class="search-screen__summary">
-      <span class="search-screen__eyebrow">Search results</span>
-      <h1>Find me an Occupational Therapist who travels to Thunder Bay for catastrophic assessments</h1>
-      <p>
-        Showing {{ filteredResults().length }} curated specialists based on your recovery program preferences and travel filters.
-      </p>
-    </div>
+    <header class="search-screen__summary">
+      <span class="search-screen__eyebrow" id="search-results-heading">SEARCH RESULTS FOR</span>
+      <p class="search-screen__query">Find me an Occupational Therapist who travels to Thunder Bay for catastrophic assessments</p>
+    </header>
 
-    <div class="search-screen__list" role="list">
-      <article class="search-card" *ngFor="let specialist of filteredResults()" role="listitem">
-        <div class="search-card__avatar" aria-hidden="true">{{ specialist.name.charAt(0) }}</div>
-        <div class="search-card__body">
-          <h2>{{ specialist.name }}</h2>
-          <span>{{ specialist.title }}</span>
-          <p>{{ specialist.facility }}</p>
-          <p>{{ specialist.description }}</p>
-        </div>
-        <button type="button" class="search-card__cta" (click)="requestProfile(specialist.id)">View profile</button>
-      </article>
+    <div class="search-screen__panel">
+      <div class="search-screen__list" role="list">
+        <article
+          class="search-card"
+          *ngFor="let specialist of filteredResults()"
+          role="listitem"
+          [ngClass]="{
+            'search-card--border-top': specialist.border === 'top-bottom',
+            'search-card--border-bottom': specialist.border === 'top-bottom' || specialist.border === 'bottom',
+            'search-card--flush': specialist.border === 'none'
+          }"
+        >
+          <img [src]="specialist.avatar" [alt]="specialist.alt" class="search-card__avatar" />
+
+          <div class="search-card__body">
+            <h2>{{ specialist.name }}</h2>
+            <p *ngFor="let detail of specialist.details">{{ detail }}</p>
+          </div>
+        </article>
+      </div>
     </div>
   </div>
 </section>
