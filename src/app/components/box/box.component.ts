@@ -13,9 +13,8 @@ export class BoxComponent {
   @Output() public forgotPassword = new EventEmitter<void>();
   @Output() public signInCompleted = new EventEmitter<void>();
 
-  protected email = 'sarah@medicalcenter.com';
-  protected password = '*********************';
-  protected showPassword = false;
+  protected email = '';
+  protected password = '';
 
   protected submitForm(event: Event): void {
     event.preventDefault();
@@ -25,10 +24,6 @@ export class BoxComponent {
     }
 
     this.signInCompleted.emit();
-  }
-
-  protected togglePasswordVisibility(): void {
-    this.showPassword = !this.showPassword;
   }
 
   protected handleForgotPassword(event: Event): void {

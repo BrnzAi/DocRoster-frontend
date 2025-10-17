@@ -6,38 +6,42 @@
 
     <form class="box-card__form" (submit)="submitForm($event)">
       <div class="box-card__socials" aria-label="Third party sign-in options">
-        <button class="box-card__social box-card__social--apple" type="button">Sign in with Apple</button>
-        <button class="box-card__social box-card__social--google" type="button">Sign in with Google</button>
+        <button class="box-card__social box-card__social--google" type="button">
+          <span class="box-card__social-icon" aria-hidden="true"></span>
+          <span class="box-card__social-text">Sign in</span>
+        </button>
+        <button class="box-card__social box-card__social--apple" type="button">
+          <span class="box-card__social-icon" aria-hidden="true"></span>
+          <span class="box-card__social-text">Sign in</span>
+        </button>
       </div>
 
       <div class="box-card__divider" role="separator"><span>OR</span></div>
 
       <label class="box-card__field">
-        <span class="box-card__label">Email address</span>
+        <span class="sr-only">Email address</span>
         <input
+          id="email"
           type="email"
           name="email"
           [(ngModel)]="email"
+          placeholder="sarah@medicalcenter.com"
           required
           autocomplete="email"
         />
       </label>
 
-      <label class="box-card__field box-card__field--password">
-        <span class="box-card__label">Password</span>
+      <label class="box-card__field">
+        <span class="sr-only">Password</span>
         <input
-          [type]="showPassword ? 'text' : 'password'"
+          id="password"
+          type="password"
           name="password"
           [(ngModel)]="password"
+          placeholder="Password"
           required
           autocomplete="current-password"
         />
-        <button
-          type="button"
-          class="box-card__toggle"
-          (click)="togglePasswordVisibility()"
-          [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
-        ></button>
       </label>
 
       <button type="submit" class="box-card__submit">Sign in to DocRoster</button>
