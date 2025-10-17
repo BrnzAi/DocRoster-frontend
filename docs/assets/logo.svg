@@ -1,0 +1,7 @@
+<svg width="258" height="160" viewBox="0 0 258 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="258" height="160" fill="#0A1748" rx="16"/>
+  <text fill="white" font-family="Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" x="50%" y="50%" dy=".3em">DocRoster</text>
+  <circle cx="220" cy="40" r="12" fill="#4285F4"/>
+  <circle cx="38" cy="40" r="8" fill="#34A853"/>
+  <circle cx="220" cy="120" r="6" fill="#EA4335"/>
+</svg>
