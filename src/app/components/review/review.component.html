@@ -1,0 +1,160 @@
+<section class="review-screen" aria-labelledby="review-heading">
+  <button type="button" class="review-screen__close" aria-label="Close review" (click)="closeReview()">
+    <span class="review-screen__close-icon" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M1.05967 11.5056C0.686426 11.8788 0.678809 12.5415 1.06729 12.93C1.46338 13.3185 2.12607 13.3108 2.4917 12.9452L7.00107 8.43585L11.5028 12.9376C11.8837 13.3185 12.5388 13.3185 12.9272 12.93C13.3157 12.5339 13.3157 11.8864 12.9349 11.5056L8.43311 7.00382L12.9349 2.49444C13.3157 2.11358 13.3233 1.4585 12.9272 1.07003C12.5388 0.68155 11.8837 0.68155 11.5028 1.06241L7.00107 5.56417L2.4917 1.06241C2.12607 0.689167 1.45576 0.673933 1.06729 1.07003C0.678809 1.4585 0.686426 2.12882 1.05967 2.49444L5.56143 7.00382L1.05967 11.5056Z"
+          fill="#0A1748"
+        />
+      </svg>
+    </span>
+  </button>
+
+  <button type="button" class="review-screen__back" aria-label="Back to upload" (click)="backToUpload()">
+    <span class="review-screen__back-icon" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M8.84976 0.491637C8.753 0.39463 8.63805 0.317666 8.5115 0.265152C8.38494 0.212639 8.24927 0.185608 8.11226 0.185608C7.97524 0.185608 7.83958 0.212639 7.71302 0.265152C7.58647 0.317666 7.47152 0.39463 7.37476 0.491637L0.449758 7.41664C0.372505 7.49373 0.311216 7.5853 0.269398 7.68612C0.22758 7.78693 0.206055 7.895 0.206055 8.00414C0.206055 8.11328 0.22758 8.22134 0.269398 8.32216C0.311216 8.42297 0.372505 8.51454 0.449758 8.59164L7.37476 15.5166C7.78309 15.925 8.44143 15.925 8.84976 15.5166C9.25809 15.1083 9.25809 14.45 8.84976 14.0416L2.81643 7.99997L8.85809 1.9583C9.25809 1.5583 9.25809 0.891637 8.84976 0.491637Z"
+          fill="#0A1748"
+        />
+      </svg>
+    </span>
+    <span class="review-screen__back-label">Back</span>
+  </button>
+
+  <header class="review-screen__header">
+    <p class="review-screen__eyebrow">REVIEW ROSTER</p>
+    <h1 id="review-heading">Add specialists</h1>
+    <p>Review your uploaded roster before publishing to DocRoster.</p>
+  </header>
+
+  <div class="review-screen__content">
+    <section class="review-panel review-panel--file" aria-labelledby="review-file-heading">
+      <div class="review-panel__body">
+        <h2 id="review-file-heading">Roster file</h2>
+        <p class="review-panel__file-name">
+          {{ hasFile ? uploadedFileName() : 'No roster selected yet' }}
+        </p>
+        <p class="review-panel__file-meta">{{ fileMeta }}</p>
+      </div>
+
+      <div class="review-panel__actions">
+        <button type="button" class="review-cta review-cta--outline" (click)="replaceFile()">Replace file</button>
+        <button type="button" class="review-cta review-cta--ghost" (click)="clearFile()" [disabled]="!hasFile">
+          Remove
+        </button>
+      </div>
+    </section>
+
+    <section class="review-panel review-panel--summary" aria-labelledby="review-summary-heading">
+      <div class="review-panel__body">
+        <h2 id="review-summary-heading">Publish queue</h2>
+        <p class="review-panel__summary">{{ pendingSummary }}</p>
+      </div>
+
+      <div class="review-panel__actions">
+        <button type="button" class="review-cta review-cta--primary" (click)="publishNow()" [disabled]="pendingCount > 0">
+          Publish now
+        </button>
+        <button type="button" class="review-cta review-cta--secondary" (click)="saveDraft()">Save draft</button>
+      </div>
+    </section>
+
+    <section class="review-notice" role="status" aria-live="polite">
+      <span class="review-notice__badge">{{ pendingCount }} pending</span>
+      <p>Complete the highlighted specialists to unlock publishing.</p>
+      <button type="button" class="review-notice__link" (click)="openMissingInfo()">Jump to next issue</button>
+    </section>
+
+    <div class="review-search" role="search">
+      <label class="review-search__field">
+        <span class="sr-only">Search specialists</span>
+        <input type="search" placeholder="Search specialists in this file" [(ngModel)]="searchTerm" />
+      </label>
+    </div>
+
+    <div class="review-layout">
+      <aside class="review-specialists" aria-label="Specialists awaiting review">
+        <header class="review-specialists__header">
+          <h2>Roster entries</h2>
+          <span>{{ filteredSpecialists.length }} specialists</span>
+        </header>
+
+        <ul class="review-specialists__list">
+          <li *ngFor="let specialist of filteredSpecialists; trackBy: trackBySpecialistId">
+            <button
+              type="button"
+              class="review-specialist"
+              [class.review-specialist--active]="specialist.id === selectedSpecialistId"
+              (click)="selectSpecialist(specialist.id)"
+            >
+              <div class="review-specialist__info">
+                <p class="review-specialist__name">{{ specialist.name }}</p>
+                <p class="review-specialist__meta">{{ specialist.speciality }} • {{ specialist.location }}</p>
+              </div>
+              <span
+                class="review-specialist__status"
+                [ngClass]="{
+                  'review-specialist__status--missing': specialist.status === 'missing',
+                  'review-specialist__status--ready': specialist.status === 'ready'
+                }"
+              >
+                {{ statusLabel(specialist.status) }}
+              </span>
+            </button>
+          </li>
+        </ul>
+      </aside>
+
+      <article class="review-details" *ngIf="activeSpecialist" aria-live="polite">
+        <header class="review-details__header">
+          <div>
+            <h2>{{ activeSpecialist.name }}</h2>
+            <p>{{ activeSpecialist.location }}</p>
+          </div>
+          <span class="review-details__tag">{{ activeSpecialist.speciality }}</span>
+        </header>
+
+        <section class="review-details__missing" *ngIf="activeSpecialist.missing.length" aria-labelledby="missing-heading">
+          <h3 id="missing-heading">Missing details</h3>
+          <ul>
+            <li *ngFor="let field of activeSpecialist.missing">{{ field }}</li>
+          </ul>
+        </section>
+
+        <form class="review-form" (ngSubmit)="saveChanges()">
+          <label>
+            <span>Email</span>
+            <input type="email" name="email" [(ngModel)]="formModel.email" required />
+          </label>
+          <label>
+            <span>Phone</span>
+            <input type="tel" name="phone" [(ngModel)]="formModel.phone" />
+          </label>
+          <label>
+            <span>Languages</span>
+            <input type="text" name="languages" [(ngModel)]="formModel.languages" />
+          </label>
+          <label>
+            <span>Average fees</span>
+            <input type="text" name="averageFees" [(ngModel)]="formModel.averageFees" placeholder="$" />
+          </label>
+          <label>
+            <span>Clinic / hospital</span>
+            <input type="text" name="location" [(ngModel)]="formModel.location" />
+          </label>
+          <label class="review-form__notes">
+            <span>Notes</span>
+            <textarea name="notes" rows="3" [(ngModel)]="formModel.notes" placeholder="Internal notes"></textarea>
+          </label>
+
+          <div class="review-form__actions">
+            <button type="submit" class="review-cta review-cta--primary">Save changes</button>
+            <button type="button" class="review-cta review-cta--outline" (click)="markAsReviewed()">Mark as ready</button>
+            <button type="button" class="review-cta review-cta--ghost" (click)="flagAsMissing()">Flag issue</button>
+          </div>
+        </form>
+      </article>
+    </div>
+  </div>
+</section>

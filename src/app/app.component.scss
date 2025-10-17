@@ -36,6 +36,9 @@
   position: absolute;
   top: clamp(1rem, 4vw, 2rem);
   left: clamp(1rem, 4vw, 2rem);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   padding: 0.55rem 1.25rem;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.4);
@@ -51,6 +54,25 @@
 .app-shell__back:hover {
   transform: translateY(-1px);
   opacity: 0.85;
+}
+
+.app-shell__back-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+}
+
+.app-shell__back-icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.app-shell__back-label {
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 @media (max-width: 768px) {

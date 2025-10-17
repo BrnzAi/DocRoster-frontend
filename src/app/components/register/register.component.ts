@@ -53,4 +53,8 @@ export class RegisterComponent {
   protected showTerms(): void {
     window.alert('Terms and Conditions would open here.');
   }
+
+  protected handleBack(): void {
+    this.back.emit();
+  }
 }
