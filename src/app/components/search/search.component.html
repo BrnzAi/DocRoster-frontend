@@ -12,7 +12,7 @@
         aria-label="Open filter options"
         (click)="openFilters()"
       >
-        <img src="assets/anima/search/vector-1.svg" alt="" />
+        <img src="assets/anima/search/vector.svg" alt="" />
       </button>
 
       <label for="specialist-search" class="sr-only">Find a specialist</label>
@@ -31,7 +31,7 @@
         class="search-screen__action search-screen__action--submit"
         aria-label="Search specialists"
       >
-        <img src="assets/anima/search/vector.svg" alt="" />
+        <img src="assets/anima/search/vector-1.svg" alt="" />
       </button>
     </form>
 
@@ -47,7 +47,7 @@
   <div class="search-screen__content">
     <header class="search-screen__summary">
       <span class="search-screen__eyebrow" id="search-results-heading">SEARCH RESULTS FOR</span>
-      <p class="search-screen__query">{{ displayedQuery }}</p>
+      <p class="search-screen__query">{{ displayedQuery() }}</p>
     </header>
 
     <div class="search-screen__panel">
