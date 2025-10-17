@@ -11,6 +11,7 @@
         type="search"
         placeholder="Find a specialist..."
         [(ngModel)]="query"
+        (ngModelChange)="handleQueryChange($event)"
         name="search"
         aria-label="Find a specialist"
       />
@@ -36,11 +37,18 @@
     </header>
 
     <div class="search-screen__panel">
-      <div class="search-screen__list" role="list">
+      <p class="search-screen__status" *ngIf="isLoading()">Searching specialists…</p>
+      <p class="search-screen__status" *ngIf="showEmptyState()">No specialists matched your search.</p>
+
+      <div
+        class="search-screen__list"
+        role="list"
+        *ngIf="!isLoading() && !showEmptyState()"
+      >
         <button
           type="button"
           class="search-card"
-          *ngFor="let specialist of filteredResults()"
+          *ngFor="let specialist of filteredResults(); trackBy: trackByResultId"
           role="listitem"
           (click)="requestProfile(specialist.id)"
           [ngClass]="{

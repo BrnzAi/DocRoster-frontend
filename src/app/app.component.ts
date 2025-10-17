@@ -1,107 +1,83 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
-import { BoxComponent } from './components/box/box.component';
-import { RecoverComponent } from './components/recover/recover.component';
-import { SearchComponent } from './components/search/search.component';
-import { SpecialistComponent } from './components/specialist/specialist.component';
+import { Component, computed, inject, signal } from '@angular/core';
+import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 type ScreenKey = 'box' | 'recover' | 'search' | 'specialist';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, BoxComponent, RecoverComponent, SearchComponent, SpecialistComponent],
+  imports: [CommonModule, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  protected activeScreen: ScreenKey = this.resolveScreen();
-  protected selectedSpecialistId: number | null = null;
+  private readonly router = inject(Router);
 
-  @HostListener('window:hashchange')
-  protected onHashChange(): void {
-    this.activeScreen = this.resolveScreen();
-  }
+  protected readonly activeScreen = signal<ScreenKey>('box');
+  protected readonly showBackButton = computed(() => this.activeScreen() !== 'box');
 
-  protected handleSignIn(): void {
-    this.setScreen('search');
-  }
+  constructor() {
+    this.updateActiveScreen();
 
-  protected openRecover(): void {
-    this.setScreen('recover');
-  }
-
-  protected closeRecover(): void {
-    this.setScreen('box');
-  }
-
-  protected handleProfileRequest(specialistId: number | null = null): void {
-    this.selectedSpecialistId = specialistId;
-    this.setScreen('specialist');
-  }
-
-  protected closeSpecialist(): void {
-    this.setScreen('search');
+    this.router.events
+      .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
+      .subscribe(() => this.updateActiveScreen());
   }
 
   protected handleBackClick(): void {
-    if (this.activeScreen === 'specialist') {
-      this.setScreen('search');
+    const screen = this.activeScreen();
+
+    if (screen === 'specialist') {
+      void this.router.navigate(['/search']);
       return;
     }
 
-    this.setScreen('box');
+    if (screen === 'search' || screen === 'recover') {
+      void this.router.navigate(['/']);
+      return;
+    }
+
+    void this.router.navigate(['/']);
   }
 
   protected get backButtonLabel(): string {
-    return this.activeScreen === 'specialist' ? '← Results' : '← Back';
+    return this.activeScreen() === 'specialist' ? '← Results' : '← Back';
   }
 
   protected get backButtonAriaLabel(): string {
-    if (this.activeScreen === 'specialist') {
+    const screen = this.activeScreen();
+
+    if (screen === 'specialist') {
       return 'Back to search results';
     }
 
-    if (this.activeScreen === 'search') {
+    if (screen === 'search' || screen === 'recover') {
       return 'Back to sign in';
     }
 
     return 'Back';
   }
 
-  private setScreen(screen: ScreenKey): void {
-    if (screen !== 'specialist') {
-      this.selectedSpecialistId = null;
+  private updateActiveScreen(): void {
+    const url = this.router.url.split('?')[0];
+
+    if (url.startsWith('/recover')) {
+      this.activeScreen.set('recover');
+      return;
     }
 
-    this.activeScreen = screen;
-
-    if (typeof window !== 'undefined') {
-      const hash = screen === 'box' ? '' : `#${screen}`;
-      const targetUrl = `${window.location.pathname}${hash}${window.location.search}`;
-      window.history.replaceState(null, '', targetUrl);
-    }
-  }
-
-  private resolveScreen(): ScreenKey {
-    if (typeof window === 'undefined' || typeof window.location?.hash !== 'string') {
-      return 'box';
+    if (url.startsWith('/search')) {
+      this.activeScreen.set('search');
+      return;
     }
 
-    const hash = window.location.hash.replace('#', '').toLowerCase();
-
-    if (hash === 'recover') {
-      return 'recover';
+    if (url.startsWith('/specialist/')) {
+      this.activeScreen.set('specialist');
+      return;
     }
 
-    if (hash === 'search') {
-      return 'search';
-    }
-
-    if (hash === 'specialist') {
-      return 'specialist';
-    }
-
-    return 'box';
+    this.activeScreen.set('box');
   }
 }

@@ -1,117 +1,135 @@
 <section
   class="specialist"
   aria-label="Specialist profile"
-  [attr.data-specialist-id]="specialistId ?? undefined"
+  [attr.data-specialist-id]="specialist()?.id ?? undefined"
 >
   <button class="specialist__close" type="button" aria-label="Close profile" (click)="handleClose()">
     <img src="assets/anima/specialist/close.svg" alt="" />
   </button>
 
-  <div class="specialist__hero">
-    <div class="specialist__photo-wrapper">
-      <img class="specialist__photo" alt="{{ intro.name }}" src="assets/anima/specialist/image.svg" />
-      <span class="specialist__accent" aria-hidden="true">
-        <img src="assets/anima/specialist/vector-11.svg" alt="" />
-      </span>
-    </div>
-
-    <div class="specialist__intro">
-      <h1 class="specialist__name">{{ intro.name }}</h1>
-
-      <p class="specialist__bio">
-        <ng-container *ngFor="let line of splitLines(intro.biography); let last = last">
-          {{ line }}<br *ngIf="!last" />
-        </ng-container>
-      </p>
-
-      <div class="specialist__actions" role="group" aria-label="Contact actions">
-        <button
-          type="button"
-          class="specialist__action specialist__action--primary"
-          aria-label="Call now"
-        >
-          <span class="specialist__action-icon" aria-hidden="true">
-            <img src="assets/anima/specialist/vector.svg" alt="" />
+  <ng-container *ngIf="!isLoading(); else loadingState">
+    <ng-container *ngIf="specialist() as currentSpecialist; else notFoundState">
+      <div class="specialist__hero">
+        <header class="specialist__header">
+          <h1 class="specialist__name">{{ currentSpecialist.name }}</h1>
+          <span class="specialist__accent" aria-hidden="true">
+            <img [src]="currentSpecialist.accentIcon" alt="" />
           </span>
-          <span>Call now</span>
-        </button>
+        </header>
 
-        <button
-          type="button"
-          class="specialist__action specialist__action--secondary"
-          aria-label="Navigate"
-        >
-          <span class="specialist__action-icon" aria-hidden="true">
-            <img src="assets/anima/specialist/vector-1.svg" alt="" />
-          </span>
-          <span>Navigate</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <div class="specialist__body">
-    <section class="specialist__panel" aria-labelledby="specializations-title">
-      <h2 id="specializations-title" class="specialist__panel-title">Specializations</h2>
-
-      <ul class="specialist__feature-list">
-        <li class="specialist__feature" *ngFor="let spec of specializations">
-          <span
-            class="specialist__feature-icon"
-            [ngClass]="{
-              'specialist__feature-icon--midnight': spec.tint === 'midnight',
-              'specialist__feature-icon--mist': spec.tint === 'mist'
-            }"
-          >
-            <img [src]="spec.icon" alt="" [ngStyle]="spec.offsets" />
-          </span>
-
-          <div class="specialist__feature-content">
-            <span class="specialist__feature-title">
-              <ng-container *ngFor="let line of splitLines(spec.title); let last = last">
-                {{ line }}<br *ngIf="!last" />
-              </ng-container>
-            </span>
-            <span class="specialist__feature-subtitle">{{ spec.subtitle }}</span>
-          </div>
-        </li>
-      </ul>
-    </section>
-
-    <section class="specialist__panel" aria-labelledby="availability-title">
-      <h2 id="availability-title" class="specialist__panel-title">Availability</h2>
-
-      <article class="specialist__availability">
-        <span class="specialist__availability-icon" aria-hidden="true">
-          <img src="assets/anima/specialist/vector-5.svg" alt="" />
-          <img src="assets/anima/specialist/vector-6.svg" alt="" />
-        </span>
-
-        <ul class="specialist__availability-times">
-          <li *ngFor="let slot of availability">{{ slot }}</li>
-        </ul>
-
-        <button
-          type="button"
-          class="specialist__action specialist__action--primary specialist__action--full"
-          aria-label="Make an appointment"
-        >
-          Make an appointment
-        </button>
-      </article>
-    </section>
-
-    <section class="specialist__panel" aria-labelledby="contact-title">
-      <h2 id="contact-title" class="specialist__panel-title">Clinic contacts</h2>
-
-      <address class="specialist__contact-list">
-        <div class="specialist__contact-item" *ngFor="let contact of contactInfo">
-          <span class="specialist__contact-icon" aria-hidden="true">
-            <img [src]="contact.icon" alt="" [ngStyle]="contact.offsets" />
-          </span>
-          <span class="specialist__contact-text">{{ contact.text }}</span>
+        <div class="specialist__photo-wrapper">
+          <img
+            class="specialist__photo"
+            [alt]="currentSpecialist.avatarAlt"
+            [src]="currentSpecialist.avatar"
+          />
         </div>
-      </address>
-    </section>
-  </div>
+
+        <div class="specialist__intro">
+          <p class="specialist__bio">
+            <ng-container *ngFor="let line of splitLines(currentSpecialist.biography); let last = last">
+              {{ line }}<br *ngIf="!last" />
+            </ng-container>
+          </p>
+
+          <div class="specialist__actions" role="group" aria-label="Contact actions">
+            <button
+              type="button"
+              class="specialist__action specialist__action--primary"
+              aria-label="Call now"
+            >
+              <span class="specialist__action-icon" aria-hidden="true">
+                <img src="assets/anima/specialist/vector.svg" alt="" />
+              </span>
+              <span>Call now</span>
+            </button>
+
+            <button
+              type="button"
+              class="specialist__action specialist__action--secondary"
+              aria-label="Navigate"
+            >
+              <span class="specialist__action-icon" aria-hidden="true">
+                <img src="assets/anima/specialist/vector-1.svg" alt="" />
+              </span>
+              <span>Navigate</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="specialist__body">
+        <section class="specialist__panel" aria-labelledby="specializations-title">
+          <h2 id="specializations-title" class="specialist__panel-title">Specializations</h2>
+
+          <ul class="specialist__feature-list">
+            <li class="specialist__feature" *ngFor="let spec of currentSpecialist.specializations">
+              <span
+                class="specialist__feature-icon"
+                [ngClass]="{
+                  'specialist__feature-icon--midnight': spec.tint === 'midnight',
+                  'specialist__feature-icon--mist': spec.tint === 'mist'
+                }"
+              >
+                <img [src]="spec.icon" alt="" [ngStyle]="spec.offsets" />
+              </span>
+
+              <div class="specialist__feature-content">
+                <span class="specialist__feature-title">
+                  <ng-container *ngFor="let line of splitLines(spec.title); let last = last">
+                    {{ line }}<br *ngIf="!last" />
+                  </ng-container>
+                </span>
+                <span class="specialist__feature-subtitle">{{ spec.subtitle }}</span>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <section class="specialist__panel" aria-labelledby="availability-title">
+          <h2 id="availability-title" class="specialist__panel-title">Availability</h2>
+
+          <article class="specialist__availability">
+            <span class="specialist__availability-icon" aria-hidden="true">
+              <img src="assets/anima/specialist/vector-5.svg" alt="" />
+              <img src="assets/anima/specialist/vector-6.svg" alt="" />
+            </span>
+
+            <ul class="specialist__availability-times">
+              <li *ngFor="let slot of currentSpecialist.availability">{{ slot }}</li>
+            </ul>
+
+            <button
+              type="button"
+              class="specialist__action specialist__action--primary specialist__action--full"
+              aria-label="Make an appointment"
+            >
+              Make an appointment
+            </button>
+          </article>
+        </section>
+
+        <section class="specialist__panel" aria-labelledby="contact-title">
+          <h2 id="contact-title" class="specialist__panel-title">Clinic contacts</h2>
+
+          <address class="specialist__contact-list">
+            <div class="specialist__contact-item" *ngFor="let contact of currentSpecialist.contactInfo">
+              <span class="specialist__contact-icon" aria-hidden="true">
+                <img [src]="contact.icon" alt="" [ngStyle]="contact.offsets" />
+              </span>
+              <span class="specialist__contact-text">{{ contact.text }}</span>
+            </div>
+          </address>
+        </section>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #loadingState>
+    <div class="specialist__status" role="status">Loading specialist…</div>
+  </ng-template>
+
+  <ng-template #notFoundState>
+    <div class="specialist__status" role="alert">We couldn't find that specialist.</div>
+  </ng-template>
 </section>
