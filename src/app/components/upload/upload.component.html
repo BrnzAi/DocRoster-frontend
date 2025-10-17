@@ -1,0 +1,126 @@
+<section class="upload-screen" aria-labelledby="upload-heading">
+  <button type="button" class="upload-screen__close" aria-label="Close" (click)="close()">
+    <img src="assets/profile/close.svg" alt="" />
+  </button>
+
+  <button
+    type="button"
+    class="upload-screen__back"
+    (click)="goBack()"
+    [attr.aria-label]="backLabel"
+  >
+    <span class="upload-screen__back-icon" aria-hidden="true">←</span>
+    <span class="upload-screen__back-label">{{ backLabel }}</span>
+  </button>
+
+  <header class="upload-screen__header">
+    <h1 id="upload-heading">{{ heading }}</h1>
+    <p>{{ subheading }}</p>
+  </header>
+
+  <section class="upload-screen__upload" aria-labelledby="upload-roster">
+    <h2 id="upload-roster">Upload roster</h2>
+
+    <label class="upload-screen__file" [class.upload-screen__file--active]="selectedFile">
+      <span class="upload-screen__file-label">
+        {{ selectedFile?.name || 'Select roster file (CSV)' }}
+      </span>
+      <input
+        type="file"
+        accept=".csv"
+        aria-label="Select roster file in CSV format"
+        (change)="handleFileChange($event)"
+      />
+    </label>
+
+    <button type="button" class="upload-screen__upload-button" (click)="uploadData()" [disabled]="!selectedFile">
+      Upload data
+    </button>
+  </section>
+
+  <div class="upload-screen__divider" role="separator" aria-label="or">
+    <span>OR</span>
+  </div>
+
+  <form class="upload-form" novalidate>
+    <section class="upload-form__section" aria-labelledby="bio-heading">
+      <h2 id="bio-heading">Bio</h2>
+
+      <label class="upload-input">
+        <span class="upload-input__label">Full name</span>
+        <input
+          type="text"
+          name="fullName"
+          placeholder="Full name"
+          [(ngModel)]="form.fullName"
+        />
+      </label>
+
+      <label class="upload-input upload-input--multiline">
+        <span class="upload-input__label">Short description</span>
+        <textarea
+          name="description"
+          placeholder="Short description"
+          [(ngModel)]="form.description"
+          rows="4"
+        ></textarea>
+      </label>
+
+      <label class="upload-input">
+        <span class="upload-input__label">Gender</span>
+        <select name="gender" [(ngModel)]="form.gender">
+          <option value="" disabled>Gender</option>
+          <option *ngFor="let option of genderOptions" [value]="option">{{ option }}</option>
+        </select>
+      </label>
+
+      <label class="upload-input">
+        <span class="upload-input__label">Languages</span>
+        <select name="languages" [(ngModel)]="form.languages">
+          <option value="" disabled>Languages</option>
+          <option *ngFor="let option of languageOptions" [value]="option">{{ option }}</option>
+        </select>
+      </label>
+    </section>
+
+    <section class="upload-form__section" aria-labelledby="work-heading">
+      <h2 id="work-heading">Work</h2>
+
+      <ng-container *ngFor="let field of workSelectFields; trackBy: trackByPlaceholder">
+        <label class="upload-input">
+          <span class="upload-input__label">{{ field.placeholder }}</span>
+          <select [name]="field.key" [(ngModel)]="form[field.key]">
+            <option value="" disabled>{{ field.placeholder }}</option>
+            <option *ngFor="let option of field.options" [value]="option">{{ option }}</option>
+          </select>
+        </label>
+      </ng-container>
+
+      <div class="upload-form__row">
+        <ng-container *ngFor="let field of workTextFields; trackBy: trackByPlaceholder">
+          <label class="upload-input">
+            <span class="upload-input__label">{{ field.placeholder }}</span>
+            <input
+              type="text"
+              [name]="field.key"
+              placeholder="{{ field.placeholder }}"
+              [(ngModel)]="form[field.key]"
+            />
+          </label>
+        </ng-container>
+      </div>
+
+      <ng-container *ngFor="let field of workSingleFields; trackBy: trackByPlaceholder">
+        <label class="upload-input">
+          <span class="upload-input__label">{{ field.placeholder }}</span>
+          <input
+            type="text"
+            [name]="field.key"
+            placeholder="{{ field.placeholder }}"
+            [(ngModel)]="form[field.key]"
+          />
+        </label>
+      </ng-container>
+    </section>
+  </form>
+</section>

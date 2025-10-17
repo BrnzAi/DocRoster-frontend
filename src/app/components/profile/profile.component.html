@@ -22,7 +22,7 @@
   </header>
 
   <nav class="profile-screen__actions" aria-label="Profile actions">
-    <button type="button" aria-label="Edit profile">
+    <button type="button" aria-label="Edit profile" (click)="openEditSpecialist()">
       <img src="assets/profile/vector-9.svg" alt="" />
     </button>
     <span class="profile-screen__actions-divider" aria-hidden="true"></span>
@@ -57,7 +57,12 @@
   <section class="profile-screen__specialists" aria-labelledby="specialists-heading">
     <header class="profile-screen__specialists-header">
       <h2 id="specialists-heading">Your specialists</h2>
-      <button type="button" class="profile-screen__add" aria-label="Add specialist">
+      <button
+        type="button"
+        class="profile-screen__add"
+        aria-label="Add specialist"
+        (click)="openAddSpecialist()"
+      >
         <span>Add</span>
         <span class="profile-screen__add-icon" aria-hidden="true">
           <img src="assets/profile/vector-2.svg" alt="" />

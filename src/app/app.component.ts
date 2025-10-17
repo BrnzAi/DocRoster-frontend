@@ -3,7 +3,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
-type ScreenKey = 'box' | 'recover' | 'search' | 'specialist' | 'profile';
+type ScreenKey = 'box' | 'recover' | 'search' | 'specialist' | 'profile' | 'upload';
 
 @Component({
   selector: 'app-root',
@@ -39,6 +39,11 @@ export class AppComponent {
       return;
     }
 
+    if (screen === 'upload') {
+      void this.router.navigate(['/profile']);
+      return;
+    }
+
     if (screen === 'search' || screen === 'recover') {
       void this.router.navigate(['/']);
       return;
@@ -48,7 +53,17 @@ export class AppComponent {
   }
 
   protected get backButtonLabel(): string {
-    return this.activeScreen() === 'specialist' ? '← Results' : '← Back';
+    const screen = this.activeScreen();
+
+    if (screen === 'specialist') {
+      return '← Results';
+    }
+
+    if (screen === 'upload') {
+      return '← Profile';
+    }
+
+    return '← Back';
   }
 
   protected get backButtonAriaLabel(): string {
@@ -60,6 +75,10 @@ export class AppComponent {
 
     if (screen === 'profile') {
       return 'Back to search results';
+    }
+
+    if (screen === 'upload') {
+      return 'Back to profile';
     }
 
     if (screen === 'search' || screen === 'recover') {
@@ -84,6 +103,11 @@ export class AppComponent {
 
     if (url.startsWith('/profile')) {
       this.activeScreen.set('profile');
+      return;
+    }
+
+    if (url.startsWith('/upload')) {
+      this.activeScreen.set('upload');
       return;
     }
 

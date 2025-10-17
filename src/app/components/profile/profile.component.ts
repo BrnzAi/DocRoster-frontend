@@ -95,4 +95,12 @@ export class ProfileComponent {
   protected closeProfile(): void {
     void this.router.navigate(['/search']);
   }
+
+  protected openEditSpecialist(): void {
+    void this.router.navigate(['/upload/edit']);
+  }
+
+  protected openAddSpecialist(): void {
+    void this.router.navigate(['/upload/new']);
+  }
 }
