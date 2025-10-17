@@ -1,0 +1,1 @@
+export { SpecialitySection } from "./SpecialitySection";
