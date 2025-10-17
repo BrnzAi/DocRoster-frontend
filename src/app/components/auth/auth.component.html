@@ -26,7 +26,7 @@
     </div>
 
     <div class="auth__divider" role="presentation">
-      <span>или</span>
+      <span>OR</span>
     </div>
 
     <form class="auth__form" (ngSubmit)="submitForm()">
@@ -42,7 +42,7 @@
       </label>
 
       <label class="auth__field auth__field--password">
-        <span class="auth__field-label">Пароль</span>
+        <span class="auth__field-label">Password</span>
         <input
           [type]="showPassword ? 'text' : 'password'"
           name="password"
@@ -55,23 +55,23 @@
           class="auth__toggle"
           [class.auth__toggle--active]="showPassword"
           (click)="togglePasswordVisibility()"
-          [attr.aria-label]="showPassword ? 'Скрыть пароль' : 'Показать пароль'"
+          [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
         ></button>
       </label>
 
       <button type="submit" class="auth__submit" [disabled]="isLoading">
         <span *ngIf="isLoading" class="auth__spinner" aria-hidden="true"></span>
-        {{ isLoading ? 'Вход...' : 'Войти в DocRoster' }}
+        {{ isLoading ? 'Signing in...' : 'Sign in to DocRoster' }}
       </button>
     </form>
 
     <button type="button" class="auth__link" (click)="triggerRecover()">
-      Забыли пароль?
+      Forgot password?
     </button>
 
     <p class="auth__footer">
-      <span>Нет аккаунта?</span>
-      <button type="button" (click)="triggerRegister()">Зарегистрируйтесь</button>
+      <span>Don't have an account?</span>
+      <button type="button" (click)="triggerRegister()">Register</button>
     </p>
   </div>
 </section>

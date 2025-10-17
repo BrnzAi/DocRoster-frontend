@@ -1,5 +1,5 @@
 <section class="register">
-  <button type="button" class="register__back" (click)="handleBack()" aria-label="Назад к входу">
+  <button type="button" class="register__back" (click)="handleBack()" aria-label="Back to sign in">
     <span class="register__back-icon" aria-hidden="true">
       <svg width="14" height="14" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -13,12 +13,12 @@
 
   <div class="register__avatar">
     <img src="assets/user.png" alt="Avatar" />
-    <button type="button" class="register__avatar-action" aria-label="Загрузить фото"></button>
+    <button type="button" class="register__avatar-action" aria-label="Upload profile photo"></button>
   </div>
 
   <header class="register__header">
-    <h1>Создание аккаунта</h1>
-    <p>Заполните данные, чтобы управлять специалистами и записываться на приём</p>
+    <h1>Register account</h1>
+    <p>Sign up to view and manage specialists</p>
   </header>
 
   <div class="register__socials">
@@ -32,32 +32,33 @@
     </button>
   </div>
 
-  <div class="register__divider"><span>или</span></div>
+  <div class="register__divider"><span>OR</span></div>
 
   <form class="register__form" (ngSubmit)="submitForm()">
     <label>
-      <span>Имя или название компании *</span>
+      <span>Person or company name *</span>
       <input type="text" name="name" [(ngModel)]="formData.name" required />
     </label>
     <label>
-      <span>Email для входа *</span>
+      <span>Email used for login *</span>
       <input type="email" name="email" [(ngModel)]="formData.email" required />
     </label>
     <label>
-      <span>Телефон</span>
+      <span>Phone number (optional)</span>
       <input type="tel" name="phone" [(ngModel)]="formData.phone" />
     </label>
 
     <button type="submit" [disabled]="isLoading || !agreedToTerms">
       <span *ngIf="isLoading" class="register__spinner" aria-hidden="true"></span>
-      {{ isLoading ? 'Создание...' : 'Зарегистрироваться в DocRoster' }}
+      {{ isLoading ? 'Creating account...' : 'Sign up to DocRoster' }}
     </button>
   </form>
 
   <label class="register__terms">
     <input type="checkbox" [(ngModel)]="agreedToTerms" name="terms" />
     <span>
-      Я принимаю <button type="button" (click)="showTerms()">условия сервиса</button>
+      I've read and agree to the
+      <button type="button" (click)="showTerms()">Terms and Conditions</button>
     </span>
   </label>
 </section>
