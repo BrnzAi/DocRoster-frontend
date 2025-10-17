@@ -1,0 +1,88 @@
+<section class="profile-screen" aria-labelledby="profile-name">
+  <header class="profile-screen__header">
+    <img class="profile-screen__banner" src="assets/profile/image.png" alt="Profile background" />
+
+    <div class="profile-screen__identity">
+      <h1 id="profile-name">Sarah Rogers</h1>
+
+      <div class="profile-screen__contact" role="list">
+        <a
+          *ngFor="let contact of contactInfo"
+          class="profile-screen__contact-chip"
+          [href]="contact.href"
+          role="listitem"
+        >
+          <span class="profile-screen__contact-icon" aria-hidden="true">
+            <img [src]="contact.icon" alt="" [ngStyle]="contact.iconStyle" />
+          </span>
+          <span class="profile-screen__contact-text">{{ contact.text }}</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <nav class="profile-screen__actions" aria-label="Profile actions">
+    <button type="button" aria-label="Edit profile">
+      <img src="assets/profile/vector-9.svg" alt="" />
+    </button>
+    <span class="profile-screen__actions-divider" aria-hidden="true"></span>
+    <button type="button" aria-label="Share profile">
+      <img src="assets/profile/vector-10.svg" alt="" />
+    </button>
+  </nav>
+
+  <button
+    type="button"
+    class="profile-screen__close"
+    aria-label="Close profile"
+    (click)="closeProfile()"
+  >
+    <img src="assets/profile/close.svg" alt="" />
+  </button>
+
+  <section
+    class="profile-screen__statistics"
+    aria-labelledby="statistics-heading"
+  >
+    <h2 id="statistics-heading">Statistics</h2>
+
+    <div class="profile-screen__statistics-cards" role="list">
+      <article *ngFor="let stat of statistics" class="profile-stat" role="listitem">
+        <p class="profile-stat__value">{{ stat.value }}</p>
+        <p class="profile-stat__label">{{ stat.label }}</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="profile-screen__specialists" aria-labelledby="specialists-heading">
+    <header class="profile-screen__specialists-header">
+      <h2 id="specialists-heading">Your specialists</h2>
+      <button type="button" class="profile-screen__add" aria-label="Add specialist">
+        <span>Add</span>
+        <span class="profile-screen__add-icon" aria-hidden="true">
+          <img src="assets/profile/vector-2.svg" alt="" />
+        </span>
+      </button>
+    </header>
+
+    <ul class="profile-screen__specialists-list">
+      <li *ngFor="let specialist of specialists" class="profile-specialist">
+        <img [src]="specialist.image" [alt]="specialist.name + ' profile picture'" class="profile-specialist__avatar" />
+
+        <div class="profile-specialist__details">
+          <h3>{{ specialist.name }}</h3>
+          <p>{{ specialist.schedule }}</p>
+        </div>
+
+        <div class="profile-specialist__actions">
+          <button type="button" [attr.aria-label]="'Call ' + specialist.name">
+            <img [src]="specialist.phoneIcon" alt="" />
+          </button>
+          <button type="button" [attr.aria-label]="'Message ' + specialist.name">
+            <img [src]="specialist.messageIcon" alt="" />
+          </button>
+        </div>
+      </li>
+    </ul>
+  </section>
+</section>

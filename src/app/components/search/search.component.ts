@@ -12,6 +12,8 @@ import { SpecialistService, SpecialistSearchResult } from '../../services/specia
 })
 export class SearchComponent {
   @Output() public profileRequested = new EventEmitter<number>();
+  @Output() public profilePageRequested = new EventEmitter<void>();
+  @Output() public filterRequested = new EventEmitter<void>();
 
   private readonly specialistService = inject(SpecialistService);
 
@@ -36,14 +38,12 @@ export class SearchComponent {
     this.performSearch('');
   }
 
-  protected openHighlightedProfile(): void {
-    const [firstResult] = this.filteredResults();
+  protected openProfilePage(): void {
+    this.profilePageRequested.emit();
+  }
 
-    if (!firstResult) {
-      return;
-    }
-
-    this.profileRequested.emit(firstResult.id);
+  protected openFilters(): void {
+    this.filterRequested.emit();
   }
 
   protected requestProfile(id: number): void {

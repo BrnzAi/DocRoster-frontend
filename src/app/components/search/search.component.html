@@ -16,12 +16,17 @@
         aria-label="Find a specialist"
       />
 
-      <button type="button" class="search-screen__filter" aria-label="Filter search results">
+      <button
+        type="button"
+        class="search-screen__filter"
+        aria-label="Filter search results"
+        (click)="openFilters()"
+      >
         <img src="assets/anima/search/vector-1.svg" alt="" />
       </button>
     </form>
 
-    <button type="button" class="search-screen__profile" (click)="openHighlightedProfile()" aria-label="Go to profile">
+    <button type="button" class="search-screen__profile" (click)="openProfilePage()" aria-label="Go to profile">
       <span class="search-screen__profile-icon" aria-hidden="true">
         <img src="assets/anima/search/vector-2.svg" alt="" />
         <img src="assets/anima/search/vector-3.svg" alt="" />

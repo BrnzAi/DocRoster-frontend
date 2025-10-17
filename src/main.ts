@@ -10,11 +10,13 @@ import { BoxRouteComponent } from './app/routes/box-route.component';
 import { RecoverRouteComponent } from './app/routes/recover-route.component';
 import { SearchRouteComponent } from './app/routes/search-route.component';
 import { SpecialistRouteComponent } from './app/routes/specialist-route.component';
+import { ProfileRouteComponent } from './app/routes/profile-route.component';
 
 const routes: Routes = [
   { path: '', component: BoxRouteComponent },
   { path: 'recover', component: RecoverRouteComponent },
   { path: 'search', component: SearchRouteComponent },
+  { path: 'profile', component: ProfileRouteComponent },
   { path: 'specialist/:id', component: SpecialistRouteComponent },
   { path: '**', redirectTo: '' },
 ];

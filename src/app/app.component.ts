@@ -3,7 +3,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
-type ScreenKey = 'box' | 'recover' | 'search' | 'specialist';
+type ScreenKey = 'box' | 'recover' | 'search' | 'specialist' | 'profile';
 
 @Component({
   selector: 'app-root',
@@ -34,6 +34,11 @@ export class AppComponent {
       return;
     }
 
+    if (screen === 'profile') {
+      void this.router.navigate(['/search']);
+      return;
+    }
+
     if (screen === 'search' || screen === 'recover') {
       void this.router.navigate(['/']);
       return;
@@ -50,6 +55,10 @@ export class AppComponent {
     const screen = this.activeScreen();
 
     if (screen === 'specialist') {
+      return 'Back to search results';
+    }
+
+    if (screen === 'profile') {
       return 'Back to search results';
     }
 
@@ -70,6 +79,11 @@ export class AppComponent {
 
     if (url.startsWith('/search')) {
       this.activeScreen.set('search');
+      return;
+    }
+
+    if (url.startsWith('/profile')) {
+      this.activeScreen.set('profile');
       return;
     }
 
