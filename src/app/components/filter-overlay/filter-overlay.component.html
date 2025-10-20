@@ -9,48 +9,50 @@
     [attr.tabindex]="open ? 0 : -1"
   >
     <div class="filters__toolbar">
-      <div class="filters__icon-group" role="group" aria-label="Filter actions">
-        <button
-          type="button"
-          class="filters__icon-button"
-          aria-label="Apply filters"
-          (click)="handleApply()"
-          [disabled]="!hasChanges"
-        >
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path
-              d="M9.707 16.293 5.414 12l1.414-1.414L9.707 13.465l7.465-7.465L18.586 7l-8.879 8.879a1 1 0 0 1-1.414 0Z"
-              fill="currentColor"
-            />
-          </svg>
-        </button>
+      <div class="filters__actions">
+        <div class="filters__icon-group" role="group" aria-label="Filter actions">
+          <button
+            type="button"
+            class="filters__icon-button"
+            aria-label="Apply filters"
+            (click)="handleApply()"
+            [disabled]="!hasChanges"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path
+                d="M9.707 16.293 5.414 12l1.414-1.414L9.707 13.465l7.465-7.465L18.586 7l-8.879 8.879a1 1 0 0 1-1.414 0Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
 
-        <span class="filters__icon-divider" aria-hidden="true"></span>
+          <span class="filters__icon-divider" aria-hidden="true"></span>
 
-        <button
-          type="button"
-          class="filters__icon-button"
-          aria-label="Reset filters"
-          (click)="handleReset()"
-          [disabled]="!hasChanges"
-        >
+          <button
+            type="button"
+            class="filters__icon-button"
+            aria-label="Reset filters"
+            (click)="handleReset()"
+            [disabled]="!hasChanges"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path
+                d="M17.65 6.35a7.95 7.95 0 0 0-11.3 0l-1.32 1.31V4H3v6h6V8H6.41l1.31-1.31a5.97 5.97 0 1 1 0 8.44l-1.43 1.41a8 8 0 1 0 11.36-11.19Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <button type="button" class="filters__close" aria-label="Close filters" (click)="requestClose()">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path
-              d="M17.65 6.35a7.95 7.95 0 0 0-11.3 0l-1.32 1.31V4H3v6h6V8H6.41l1.31-1.31a5.97 5.97 0 1 1 0 8.44l-1.43 1.41a8 8 0 1 0 11.36-11.19Z"
-              fill="currentColor"
-            />
+            <path d="M6.34 7.76 11.17 12l-4.83 4.24 1.32 1.51L12 13.53l4.34 4.22 1.32-1.51L13.83 12l4.83-4.24-1.32-1.51L12 10.47 7.66 6.25 6.34 7.76Z" fill="currentColor" />
           </svg>
         </button>
       </div>
+      <h1 id="filters-heading" class="filters__title">Filter specialists</h1>
 
-      <button type="button" class="filters__close" aria-label="Close filters" (click)="requestClose()">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path d="M6.34 7.76 11.17 12l-4.83 4.24 1.32 1.51L12 13.53l4.34 4.22 1.32-1.51L13.83 12l4.83-4.24-1.32-1.51L12 10.47 7.66 6.25 6.34 7.76Z" fill="currentColor" />
-        </svg>
-      </button>
     </div>
-
-    <h1 id="filters-heading" class="filters__title">Filters</h1>
 
     <div class="filters__sections">
       <section class="filters__section" aria-label="Sorting">
