@@ -117,22 +117,11 @@ export class SearchComponent {
     }
 
     return (
-      this.haveMatchingValues(previous.locations, next.locations) &&
-      this.haveMatchingValues(previous.fields, next.fields) &&
-      this.haveMatchingValues(previous.specialties, next.specialties) &&
-      this.haveMatchingValues(previous.assessments, next.assessments) &&
-      this.haveMatchingValues(previous.otherOptions, next.otherOptions)
+      previous.sorting === next.sorting &&
+      previous.fee === next.fee &&
+      previous.gender === next.gender &&
+      previous.location === next.location &&
+      previous.visitType === next.visitType
     );
-  }
-
-  private haveMatchingValues(first: readonly string[], second: readonly string[]): boolean {
-    if (first.length !== second.length) {
-      return false;
-    }
-
-    const sortedFirst = [...first].sort();
-    const sortedSecond = [...second].sort();
-
-    return sortedFirst.every((value, index) => value === sortedSecond[index]);
   }
 }

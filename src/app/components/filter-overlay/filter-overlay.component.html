@@ -8,146 +8,133 @@
     [attr.aria-modal]="open ? true : null"
     [attr.tabindex]="open ? 0 : -1"
   >
-    <header class="filters__header">
-      <div>
-        <h1 id="filters-heading" class="filters__title">Filters</h1>
-        <p class="filters__subtitle">Fine-tune the search results to find the right specialist.</p>
-      </div>
-
-      <div class="filters__actions">
-        <button type="button" class="filters__close" (click)="requestClose()" aria-label="Close filters">
-          Close
-        </button>
-        <button type="button" class="filters__clear" (click)="handleReset()" [disabled]="!hasChanges">
-          Reset
-        </button>
-        <button type="button" class="filters__apply" (click)="handleApply()" [disabled]="!hasChanges">
-          Apply filters
-        </button>
-      </div>
-    </header>
-
-    <div class="filters__content">
-    <section class="filters-section" aria-labelledby="filters-locations-heading">
-      <header class="filters-section__header">
-        <h2 id="filters-locations-heading" class="filters-section__title">Locations</h2>
-        <p class="filters-section__description">Choose one or more preferred clinic locations.</p>
-      </header>
-
-      <div class="filters-chips" role="group" aria-label="Locations">
+    <div class="filters__toolbar">
+      <div class="filters__icon-group" role="group" aria-label="Filter actions">
         <button
           type="button"
-          *ngFor="let option of locationOptions"
-          class="filters-chip"
-          [class.filters-chip--active]="option.selected"
-          (click)="toggleLocation(option.id)"
-          [attr.aria-pressed]="option.selected"
+          class="filters__icon-button"
+          aria-label="Apply filters"
+          (click)="handleApply()"
+          [disabled]="!hasChanges"
         >
-          {{ option.label }}
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path
+              d="M9.707 16.293 5.414 12l1.414-1.414L9.707 13.465l7.465-7.465L18.586 7l-8.879 8.879a1 1 0 0 1-1.414 0Z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+
+        <span class="filters__icon-divider" aria-hidden="true"></span>
+
+        <button
+          type="button"
+          class="filters__icon-button"
+          aria-label="Reset filters"
+          (click)="handleReset()"
+          [disabled]="!hasChanges"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path
+              d="M17.65 6.35a7.95 7.95 0 0 0-11.3 0l-1.32 1.31V4H3v6h6V8H6.41l1.31-1.31a5.97 5.97 0 1 1 0 8.44l-1.43 1.41a8 8 0 1 0 11.36-11.19Z"
+              fill="currentColor"
+            />
+          </svg>
         </button>
       </div>
-    </section>
 
-    <section class="filters-section" aria-labelledby="filters-field-heading">
-      <header class="filters-section__header">
-        <h2 id="filters-field-heading" class="filters-section__title">Field of practice</h2>
-        <p class="filters-section__description">Filter by the specialist’s primary area of practice.</p>
-      </header>
+      <button type="button" class="filters__close" aria-label="Close filters" (click)="requestClose()">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M6.34 7.76 11.17 12l-4.83 4.24 1.32 1.51L12 13.53l4.34 4.22 1.32-1.51L13.83 12l4.83-4.24-1.32-1.51L12 10.47 7.66 6.25 6.34 7.76Z" fill="currentColor" />
+        </svg>
+      </button>
+    </div>
 
-      <ul class="filters-list" role="list">
-        <li *ngFor="let option of fieldOptions" class="filters-list__item">
+    <h1 id="filters-heading" class="filters__title">Filters</h1>
+
+    <div class="filters__sections">
+      <section class="filters__section" aria-label="Sorting">
+        <h2 class="filters__section-title">SORTING</h2>
+        <div class="filters__options">
           <button
             type="button"
-            class="filters-list-item"
-            [class.filters-list-item--active]="option.selected"
-            (click)="toggleField(option.id)"
-            [attr.aria-pressed]="option.selected"
+            class="filters__option"
+            *ngFor="let option of sortingOptions"
+            (click)="select('sorting', option.id)"
+            [class.filters__option--active]="isSelected('sorting', option.id)"
           >
-            <span class="filters-list-item__badge" *ngIf="option.badge" aria-hidden="true">{{ option.badge }}</span>
-            <span class="filters-list-item__label">{{ option.label }}</span>
-            <span class="filters-list-item__meta" *ngIf="option.count !== undefined">
-              {{ option.count === 1 ? '1 specialist' : option.count + ' specialists' }}
-            </span>
+            {{ option.label }}
           </button>
-        </li>
-      </ul>
-    </section>
+        </div>
+      </section>
 
-    <section class="filters-section" aria-labelledby="filters-specialty-heading">
-      <header class="filters-section__header">
-        <h2 id="filters-specialty-heading" class="filters-section__title">Specialty</h2>
-        <p class="filters-section__description">Surface subspecialties based on the selected field.</p>
-      </header>
+      <hr class="filters__separator" />
 
-      <ul class="filters-list" role="list">
-        <li *ngFor="let option of specialtyOptions" class="filters-list__item">
+      <section class="filters__section" aria-label="Fees">
+        <h2 class="filters__section-title">FEES</h2>
+        <div class="filters__options">
           <button
             type="button"
-            class="filters-list-item"
-            [class.filters-list-item--active]="option.selected"
-            [class.filters-list-item--disabled]="option.disabled"
-            (click)="toggleSpecialty(option.id)"
-            [attr.aria-pressed]="option.selected"
-            [disabled]="option.disabled"
+            class="filters__option"
+            *ngFor="let option of feeOptions"
+            (click)="select('fee', option.id)"
+            [class.filters__option--active]="isSelected('fee', option.id)"
           >
-            <span class="filters-list-item__badge" *ngIf="option.badge" aria-hidden="true">{{ option.badge }}</span>
-            <span class="filters-list-item__label">{{ option.label }}</span>
-            <span class="filters-list-item__meta" *ngIf="option.count !== undefined">
-              {{ option.count === 0 ? 'No specialists' : option.count + ' specialists' }}
-            </span>
+            {{ option.label }}
           </button>
-        </li>
-      </ul>
-    </section>
+        </div>
+      </section>
 
-    <section class="filters-section" aria-labelledby="filters-assessment-heading">
-      <header class="filters-section__header">
-        <h2 id="filters-assessment-heading" class="filters-section__title">Assessment type</h2>
-        <p class="filters-section__description">Select how patients will meet the specialist.</p>
-      </header>
+      <hr class="filters__separator" />
 
-      <ul class="filters-list" role="list">
-        <li *ngFor="let option of assessmentOptions" class="filters-list__item">
+      <section class="filters__section" aria-label="Gender">
+        <h2 class="filters__section-title">GENDER</h2>
+        <div class="filters__options">
           <button
             type="button"
-            class="filters-list-item"
-            [class.filters-list-item--active]="option.selected"
-            [class.filters-list-item--disabled]="option.disabled"
-            (click)="toggleAssessment(option.id)"
-            [attr.aria-pressed]="option.selected"
-            [disabled]="option.disabled"
+            class="filters__option"
+            *ngFor="let option of genderOptions"
+            (click)="select('gender', option.id)"
+            [class.filters__option--active]="isSelected('gender', option.id)"
           >
-            <span class="filters-list-item__badge" *ngIf="option.badge" aria-hidden="true">{{ option.badge }}</span>
-            <span class="filters-list-item__label">{{ option.label }}</span>
-            <span class="filters-list-item__meta" *ngIf="option.meta">{{ option.meta }}</span>
+            {{ option.label }}
           </button>
-        </li>
-      </ul>
-    </section>
+        </div>
+      </section>
 
-    <section class="filters-section" aria-labelledby="filters-other-heading">
-      <header class="filters-section__header">
-        <h2 id="filters-other-heading" class="filters-section__title">Other options</h2>
-        <p class="filters-section__description">Toggle additional requirements for the search results.</p>
-      </header>
+      <hr class="filters__separator" />
 
-      <ul class="filters-toggle-list" role="list">
-        <li *ngFor="let option of otherOptions" class="filters-toggle-list__item">
-          <label class="filters-toggle">
-            <input
-              type="checkbox"
-              class="filters-toggle__input"
-              [checked]="option.selected"
-              (change)="toggleOtherOption(option.id)"
-            />
-            <div class="filters-toggle__content">
-              <span class="filters-toggle__label">{{ option.label }}</span>
-              <span class="filters-toggle__description">{{ option.description }}</span>
-            </div>
-          </label>
-        </li>
-      </ul>
-    </section>
+      <section class="filters__section" aria-label="Location">
+        <h2 class="filters__section-title">LOCATION</h2>
+        <div class="filters__options">
+          <button
+            type="button"
+            class="filters__option"
+            *ngFor="let option of locationOptions"
+            (click)="select('location', option.id)"
+            [class.filters__option--active]="isSelected('location', option.id)"
+          >
+            {{ option.label }}
+          </button>
+        </div>
+      </section>
+
+      <hr class="filters__separator" />
+
+      <section class="filters__section" aria-label="Visit type">
+        <h2 class="filters__section-title">TYPE</h2>
+        <div class="filters__options">
+          <button
+            type="button"
+            class="filters__option"
+            *ngFor="let option of visitTypeOptions"
+            (click)="select('visitType', option.id)"
+            [class.filters__option--active]="isSelected('visitType', option.id)"
+          >
+            {{ option.label }}
+          </button>
+        </div>
+      </section>
     </div>
   </section>
 </div>

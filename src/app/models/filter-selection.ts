@@ -1,7 +1,7 @@
 export interface FilterSelection {
-  readonly locations: string[];
-  readonly fields: string[];
-  readonly specialties: string[];
-  readonly assessments: string[];
-  readonly otherOptions: string[];
+  readonly sorting: string;
+  readonly fee: string;
+  readonly gender: string;
+  readonly location: string;
+  readonly visitType: string;
 }

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, inject, signal } from '@angular/core';
-import { Specialist } from '../../data/specialists';
+import { Specialist, SpecialistGender } from '../../data/specialists';
 import { SpecialistService } from '../../services/specialist.service';
 
 @Component({
@@ -20,6 +20,11 @@ export class SpecialistComponent implements OnChanges {
   protected readonly isLoading = signal(false);
   protected readonly notFound = signal(false);
 
+  private readonly genderIcons: Record<SpecialistGender, { icon: string; label: string }> = {
+    female: { icon: 'assets/icons/gender-female.svg', label: 'Female specialist' },
+    male: { icon: 'assets/icons/gender-male.svg', label: 'Male specialist' },
+  };
+
   private requestToken = 0;
 
   public ngOnChanges(changes: SimpleChanges): void {
@@ -34,6 +39,10 @@ export class SpecialistComponent implements OnChanges {
 
   protected splitLines(value: string): string[] {
     return value.split('\n');
+  }
+
+  protected genderIcon(gender: SpecialistGender): { icon: string; label: string } {
+    return this.genderIcons[gender];
   }
 
   private async loadSpecialist(id: number | null): Promise<void> {

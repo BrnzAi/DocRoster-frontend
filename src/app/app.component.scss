@@ -2,34 +2,34 @@
   display: block;
   min-height: 100vh;
   background: radial-gradient(140% 140% at 50% 20%, rgba(10, 23, 72, 0.08), rgba(10, 23, 72, 0.75));
-  position: relative;
-}
-
-:host::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: url('/assets/anima/box/frame-18.png') center/cover no-repeat;
-  opacity: 0.45;
-  filter: saturate(110%) brightness(105%);
-  z-index: -2;
-}
-
-:host::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(10, 23, 72, 0.25));
-  z-index: -1;
 }
 
 .app-shell {
+  position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: clamp(1.5rem, 4vw, 3rem);
-  position: relative;
+  overflow: hidden;
+}
+
+.app-shell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('../assets/anima/box/frame-18.png') center/cover no-repeat;
+  opacity: 0.6;
+  filter: saturate(110%) brightness(105%);
+  z-index: -2;
+}
+
+.app-shell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(10, 23, 72, 0.35));
+  z-index: -1;
 }
 
 .app-shell__back {
@@ -76,7 +76,7 @@
 }
 
 @media (max-width: 768px) {
-  :host::before {
+  .app-shell::before {
     opacity: 0.55;
   }
 

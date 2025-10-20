@@ -3,23 +3,11 @@
 }
 
 .box-screen {
-  position: relative;
-  min-height: clamp(620px, 90vh, 760px);
-  width: min(100%, 1048px);
+  width: min(100%, 440px);
+  padding: clamp(2.5rem, 7vw, 4.5rem) clamp(1.75rem, 5vw, 2.75rem);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 48px;
-  overflow: hidden;
-  box-shadow: 0 40px 80px rgba(12, 26, 75, 0.2);
-}
-
-.box-screen__background {
-  position: absolute;
-  inset: 0;
-  background: url('/assets/anima/box/frame-18.png') center/cover no-repeat;
-  transform: scale(1.02);
-  filter: saturate(105%) contrast(102%);
 }
 
 .box-card {
@@ -142,6 +130,7 @@
 }
 
 .box-card__field input {
+  flex: 1 1 auto;
   border: 0;
   background: transparent;
   font: 500 1rem/1.4 'SF Pro Text', 'Inter', sans-serif;
@@ -151,6 +140,22 @@
 
 .box-card__field input::placeholder {
   color: rgba(10, 23, 72, 0.45);
+}
+
+.box-card__field-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: rgba(10, 23, 72, 0.45);
+  pointer-events: none;
+}
+
+.box-card__field-icon-svg {
+  display: block;
+  width: 20px;
+  height: 20px;
 }
 
 .box-card__submit {

@@ -1,6 +1,4 @@
 <section class="box-screen" aria-label="DocRoster sign-in">
-  <div class="box-screen__background" aria-hidden="true"></div>
-
   <div class="box-card">
     <img class="box-card__logo" src="assets/anima/box/image-4.png" alt="DocRoster logo" />
 
@@ -25,7 +23,7 @@
           type="email"
           name="email"
           [(ngModel)]="email"
-          placeholder="sarah@medicalcenter.com"
+          placeholder="Email address"
           required
           autocomplete="email"
         />
@@ -42,6 +40,19 @@
           required
           autocomplete="current-password"
         />
+        <span class="box-card__field-icon" aria-hidden="true">
+          <svg
+            class="box-card__field-icon-svg"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            focusable="false"
+          >
+            <path
+              d="M12 2a7 7 0 0 0-7 7h3a4 4 0 1 1 4 4 1 1 0 0 0-1 1v2h3v-1.17A7.001 7.001 0 0 0 12 2Zm-1 17v3h3v-3h-3Z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
       </label>
 
       <button type="submit" class="box-card__submit">Sign in to DocRoster</button>

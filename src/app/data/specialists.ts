@@ -2,6 +2,8 @@ type IconTint = 'midnight' | 'mist' | 'clear';
 
 export type SpecialistSearchResultBorder = 'top-bottom' | 'bottom' | 'none';
 
+export type SpecialistGender = 'female' | 'male';
+
 export type IconOffsets = {
   top: string;
   left: string;
@@ -34,6 +36,7 @@ export interface SpecialistSearchSummary {
 export interface Specialist {
   id: number;
   name: string;
+  gender: SpecialistGender;
   accentIcon: string;
   avatar: string;
   avatarAlt: string;
@@ -48,6 +51,7 @@ export const SPECIALISTS: Specialist[] = [
   {
     id: 1,
     name: 'Dr. Emily Carter',
+    gender: 'female',
     accentIcon: 'assets/anima/specialist/vector-11.svg',
     avatar: 'assets/anima/search/ellipse-5-8.png',
     avatarAlt: 'Portrait of Dr. Emily Carter',
@@ -119,6 +123,7 @@ export const SPECIALISTS: Specialist[] = [
   {
     id: 2,
     name: 'Dr. Michael Thompson',
+    gender: 'male',
     accentIcon: 'assets/anima/specialist/vector-11.svg',
     avatar: 'assets/anima/search/ellipse-5-7.png',
     avatarAlt: 'Portrait of Dr. Michael Thompson',
@@ -186,6 +191,7 @@ export const SPECIALISTS: Specialist[] = [
   {
     id: 3,
     name: 'Dr. Sarah Johnson',
+    gender: 'female',
     accentIcon: 'assets/anima/specialist/vector-11.svg',
     avatar: 'assets/anima/search/ellipse-5-6.png',
     avatarAlt: 'Portrait of Dr. Sarah Johnson',
@@ -253,6 +259,7 @@ export const SPECIALISTS: Specialist[] = [
   {
     id: 4,
     name: 'Dr. David Lee',
+    gender: 'male',
     accentIcon: 'assets/anima/specialist/vector-11.svg',
     avatar: 'assets/anima/search/ellipse-5-9.png',
     avatarAlt: 'Portrait of Dr. David Lee',
@@ -320,6 +327,7 @@ export const SPECIALISTS: Specialist[] = [
   {
     id: 5,
     name: 'Dr. Emily Greenfield',
+    gender: 'female',
     accentIcon: 'assets/anima/specialist/vector-11.svg',
     avatar: 'assets/anima/search/ellipse-5-10.png',
     avatarAlt: 'Portrait of Dr. Emily Greenfield',
@@ -387,6 +395,7 @@ export const SPECIALISTS: Specialist[] = [
   {
     id: 6,
     name: 'Dr. Sarah Ecohart',
+    gender: 'female',
     accentIcon: 'assets/anima/specialist/vector-11.svg',
     avatar: 'assets/anima/search/ellipse-5-11.png',
     avatarAlt: 'Portrait of Dr. Sarah Ecohart',

@@ -1,33 +1,15 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { FilterSelection } from '../../models/filter-selection';
 
-interface FilterSelectableOption {
-  readonly id: string;
-  readonly selected: boolean;
-}
+type FilterOption = { readonly id: string; readonly label: string };
 
-interface FilterChipOption extends FilterSelectableOption {
-  readonly label: string;
-}
-
-interface FilterListOption extends FilterSelectableOption {
-  readonly label: string;
-  readonly badge?: string;
-  readonly count?: number;
-  readonly disabled?: boolean;
-  readonly meta?: string;
-}
-
-interface FilterToggleOption extends FilterSelectableOption {
-  readonly label: string;
-  readonly description: string;
-}
+type SelectionKey = keyof FilterSelection;
 
 @Component({
   selector: 'app-filter-overlay',
   standalone: true,
-  imports: [NgFor, NgIf],
+  imports: [NgFor],
   templateUrl: './filter-overlay.component.html',
   styleUrls: ['./filter-overlay.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -38,169 +20,86 @@ export class FilterOverlayComponent {
   @Output() public reset = new EventEmitter<void>();
   @Output() public close = new EventEmitter<void>();
 
-  private readonly baseLocationOptions: readonly FilterChipOption[] = [
-    { id: 'montreal', label: 'Montreal', selected: true },
-    { id: 'quebec-city', label: 'Quebec City', selected: false },
-    { id: 'ottawa', label: 'Ottawa', selected: false },
+  protected readonly sortingOptions: readonly FilterOption[] = [
+    { id: 'fee', label: 'Fee' },
+    { id: 'distance', label: 'Distance' },
+    { id: 'availability', label: 'Availability' },
   ];
 
-  private readonly baseFieldOptions: readonly FilterListOption[] = [
-    { id: 'family-medicine', label: 'Family medicine', badge: 'Top pick', count: 24, selected: true },
-    { id: 'orthopedics', label: 'Orthopedics', count: 8, selected: false },
-    { id: 'cardiology', label: 'Cardiology', count: 12, selected: false },
+  protected readonly feeOptions: readonly FilterOption[] = [
+    { id: 'low', label: 'Low' },
+    { id: 'medium', label: 'Medium' },
+    { id: 'high', label: 'High' },
   ];
 
-  private readonly baseSpecialtyOptions: readonly FilterListOption[] = [
-    { id: 'knee', label: 'Knee', badge: 'New', count: 6, selected: false },
-    { id: 'spine', label: 'Spine', count: 10, selected: false },
-    { id: 'sports-medicine', label: 'Sports medicine', count: 4, disabled: true, selected: false },
+  protected readonly genderOptions: readonly FilterOption[] = [
+    { id: 'any', label: 'Any' },
+    { id: 'male', label: 'Male' },
+    { id: 'female', label: 'Female' },
   ];
 
-  private readonly baseAssessmentOptions: readonly FilterListOption[] = [
-    { id: 'in-person', label: 'In person', badge: 'Popular', meta: '2-3 days', selected: true },
-    { id: 'virtual', label: 'Virtual', meta: 'Next day', selected: false },
-    { id: 'hybrid', label: 'Hybrid', meta: 'Up to 1 week', selected: false },
+  protected readonly locationOptions: readonly FilterOption[] = [
+    { id: 'belleville', label: 'Belleville' },
+    { id: 'sault-ste-marie', label: 'Sault Ste. Marie' },
+    { id: 'thunder-bay', label: 'Thunder Bay' },
   ];
 
-  private readonly baseOtherOptions: readonly FilterToggleOption[] = [
-    {
-      id: 'offers-weekend',
-      label: 'Offers weekend appointments',
-      description: 'Filter specialists who provide weekend availability.',
-      selected: false,
-    },
-    {
-      id: 'accepting-new-patients',
-      label: 'Accepting new patients',
-      description: 'Only show specialists taking on new cases.',
-      selected: true,
-    },
+  protected readonly visitTypeOptions: readonly FilterOption[] = [
+    { id: 'hybrid', label: 'Hybrid' },
+    { id: 'in-person', label: 'In-person' },
+    { id: 'virtual', label: 'Virtual' },
   ];
 
-  private locationBaseline: readonly string[] = this.extractSelection(this.baseLocationOptions);
-  private fieldBaseline: readonly string[] = this.extractSelection(this.baseFieldOptions);
-  private specialtyBaseline: readonly string[] = this.extractSelection(this.baseSpecialtyOptions);
-  private assessmentBaseline: readonly string[] = this.extractSelection(this.baseAssessmentOptions);
-  private otherBaseline: readonly string[] = this.extractSelection(this.baseOtherOptions);
+  private readonly defaultSelection: FilterSelection = {
+    sorting: 'availability',
+    fee: 'low',
+    gender: 'any',
+    location: 'thunder-bay',
+    visitType: 'hybrid',
+  };
 
-  protected locationOptions = this.cloneOptions(this.baseLocationOptions);
-  protected fieldOptions = this.cloneOptions(this.baseFieldOptions);
-  protected specialtyOptions = this.cloneOptions(this.baseSpecialtyOptions);
-  protected assessmentOptions = this.cloneOptions(this.baseAssessmentOptions);
-  protected otherOptions = this.cloneOptions(this.baseOtherOptions);
+  protected selection: FilterSelection = { ...this.defaultSelection };
+  private appliedSelection: FilterSelection = { ...this.defaultSelection };
 
   protected get hasChanges(): boolean {
-    return !(
-      this.compareSelection(this.locationOptions, this.locationBaseline) &&
-      this.compareSelection(this.fieldOptions, this.fieldBaseline) &&
-      this.compareSelection(this.specialtyOptions, this.specialtyBaseline) &&
-      this.compareSelection(this.assessmentOptions, this.assessmentBaseline) &&
-      this.compareSelection(this.otherOptions, this.otherBaseline)
-    );
-  }
-
-  protected toggleLocation(id: string): void {
-    this.locationOptions = this.toggleOption(this.locationOptions, id);
-  }
-
-  protected toggleField(id: string): void {
-    this.fieldOptions = this.toggleOption(this.fieldOptions, id);
-  }
-
-  protected toggleSpecialty(id: string): void {
-    this.specialtyOptions = this.toggleOption(this.specialtyOptions, id, true);
-  }
-
-  protected toggleAssessment(id: string): void {
-    this.assessmentOptions = this.toggleOption(this.assessmentOptions, id);
-  }
-
-  protected toggleOtherOption(id: string): void {
-    this.otherOptions = this.toggleOption(this.otherOptions, id);
+    return !this.areSelectionsEqual(this.selection, this.appliedSelection);
   }
 
   protected requestClose(): void {
     this.close.emit();
   }
 
+  protected select(key: SelectionKey, id: string): void {
+    if (this.selection[key] === id) {
+      return;
+    }
+
+    this.selection = { ...this.selection, [key]: id };
+  }
+
+  protected isSelected(key: SelectionKey, id: string): boolean {
+    return this.selection[key] === id;
+  }
+
   protected handleReset(): void {
-    this.resetFilters();
-    const selection = this.createSelection();
-    this.updateBaselines(selection);
+    this.selection = { ...this.defaultSelection };
+    this.appliedSelection = { ...this.defaultSelection };
     this.reset.emit();
   }
 
   protected handleApply(): void {
-    const selection = this.createSelection();
-    this.updateBaselines(selection);
+    const selection = { ...this.selection };
+    this.appliedSelection = selection;
     this.apply.emit(selection);
   }
 
-  private resetFilters(): void {
-    this.locationOptions = this.cloneOptions(this.baseLocationOptions);
-    this.fieldOptions = this.cloneOptions(this.baseFieldOptions);
-    this.specialtyOptions = this.cloneOptions(this.baseSpecialtyOptions);
-    this.assessmentOptions = this.cloneOptions(this.baseAssessmentOptions);
-    this.otherOptions = this.cloneOptions(this.baseOtherOptions);
-  }
-
-  private createSelection(): FilterSelection {
-    return {
-      locations: this.getSelectedIds(this.locationOptions),
-      fields: this.getSelectedIds(this.fieldOptions),
-      specialties: this.getSelectedIds(this.specialtyOptions),
-      assessments: this.getSelectedIds(this.assessmentOptions),
-      otherOptions: this.getSelectedIds(this.otherOptions),
-    };
-  }
-
-  private updateBaselines(selection: FilterSelection): void {
-    this.locationBaseline = [...selection.locations];
-    this.fieldBaseline = [...selection.fields];
-    this.specialtyBaseline = [...selection.specialties];
-    this.assessmentBaseline = [...selection.assessments];
-    this.otherBaseline = [...selection.otherOptions];
-  }
-
-  private cloneOptions<T extends FilterSelectableOption>(options: readonly T[]): T[] {
-    return options.map((option) => ({ ...option }));
-  }
-
-  private extractSelection<T extends FilterSelectableOption>(options: readonly T[]): string[] {
-    return options.filter((option) => option.selected).map((option) => option.id);
-  }
-
-  private toggleOption<T extends FilterSelectableOption>(
-    options: readonly T[],
-    id: string,
-    respectDisabled = false,
-  ): T[] {
-    return options.map((option) => {
-      if (option.id !== id) {
-        return option;
-      }
-
-      if (respectDisabled && 'disabled' in option && option.disabled) {
-        return option;
-      }
-
-      return { ...option, selected: !option.selected };
-    });
-  }
-
-  private getSelectedIds<T extends FilterSelectableOption>(options: readonly T[]): string[] {
-    return options.filter((option) => option.selected).map((option) => option.id);
-  }
-
-  private compareSelection<T extends FilterSelectableOption>(options: readonly T[], defaults: readonly string[]): boolean {
-    const selectedIds = this.getSelectedIds(options);
-    if (selectedIds.length !== defaults.length) {
-      return false;
-    }
-
-    const sortedSelected = [...selectedIds].sort();
-    const sortedDefaults = [...defaults].sort();
-
-    return sortedSelected.every((id, index) => id === sortedDefaults[index]);
+  private areSelectionsEqual(first: FilterSelection, second: FilterSelection): boolean {
+    return (
+      first.sorting === second.sorting &&
+      first.fee === second.fee &&
+      first.gender === second.gender &&
+      first.location === second.location &&
+      first.visitType === second.visitType
+    );
   }
 }
